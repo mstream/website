@@ -10,8 +10,9 @@ const paths = (() => {
         srcRoot = "./src",
         distRoot = "./dist",
         js = "js",
-        appFile = "app.js";
-    return {srcRoot, distRoot, js, appFile};
+        appFile = "app.jsx",
+        bundleName = "app.js";
+    return {srcRoot, distRoot, js, appFile, bundleName};
 })();
 
 const options = {
@@ -21,7 +22,13 @@ const options = {
     }
 };
 
-gulp.task("default", () => {
+gulp.task("copy-html", () => {
+    gulp.src("./src/**/*.html")
+        .pipe(gulp.dest(`${paths.distRoot}`));
+
+});
+
+gulp.task("browserify", () => {
     browserify(
         `${paths.js}/${paths.appFile}`,
         options.browserify
@@ -32,7 +39,9 @@ gulp.task("default", () => {
             "error",
             (err) => console.error(err)
         )
-        .pipe(source(`${paths.js}/${paths.appFile}`))
+        .pipe(source(`${paths.js}/${paths.bundleName}`))
         .pipe(buffer())
         .pipe(gulp.dest(`${paths.distRoot}`));
 });
+
+gulp.task("default", ["copy-html", "browserify"]);
