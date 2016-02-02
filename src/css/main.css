@@ -1,0 +1,4 @@
+nav .navbar-brand {
+    background: url(../img/logo.png) center / contain no-repeat;
+    width: 50px;
+}

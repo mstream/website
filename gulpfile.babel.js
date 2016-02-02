@@ -25,7 +25,16 @@ const options = {
 gulp.task("copy-html", () => {
     gulp.src("./src/**/*.html")
         .pipe(gulp.dest(`${paths.distRoot}`));
+});
 
+gulp.task("copy-css", () => {
+    gulp.src("./src/**/*.css")
+        .pipe(gulp.dest(`${paths.distRoot}`));
+});
+
+gulp.task("copy-img", () => {
+    gulp.src("./src/**/*.png")
+        .pipe(gulp.dest(`${paths.distRoot}`));
 });
 
 gulp.task("browserify", () => {
@@ -44,4 +53,4 @@ gulp.task("browserify", () => {
         .pipe(gulp.dest(`${paths.distRoot}`));
 });
 
-gulp.task("default", ["copy-html", "browserify"]);
+gulp.task("default", ["copy-html", "copy-css", "copy-img", "browserify"]);
