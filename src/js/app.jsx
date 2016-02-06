@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import ArticlesList from "./components/ArticlesList.jsx";
+import Article from "./components/Article.jsx";
 import CategoriesList from "./components/CategoriesList.jsx";
 import * as ArticlesMock from "./mocks/ArticlesMock";
 import * as CategoriesMock from "./mocks/CategoriesMock";
@@ -43,7 +44,7 @@ class Articles extends React.Component {
     }
 }
 
-class Article extends React.Component {
+/*class Article extends React.Component {
     render() {
         return (
             <div>
@@ -53,7 +54,7 @@ class Article extends React.Component {
             </div>
         );
     }
-}
+}*/
 
 class Placeholder extends React.Component {
     render() {
