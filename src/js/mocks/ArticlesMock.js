@@ -1,4 +1,4 @@
-class Post {
+class Article {
     constructor(id, title, summary, dateCreated) {
         this.id = id;
         this.title = title;
@@ -15,12 +15,12 @@ const summary = ((amount) => {
     return generatedSummary.join(" ");
 })(50);
 
-const posts = ((amount) => {
-    const generatedPosts = [];
+const articles = ((amount) => {
+    const generatedArticles = [];
     for (let i = 1; i <= amount; i++) {
-        generatedPosts.push(new Post(i, `Post #${i}`, summary, new Date()));
+        generatedArticles.push(new Article(i, `Article #${i}`, summary, new Date()));
     }
-    return generatedPosts;
+    return generatedArticles;
 })(100);
 
-export {posts};
+export {articles};

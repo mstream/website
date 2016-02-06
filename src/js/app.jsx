@@ -1,8 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import PostsList from "./components/PostsList.jsx";
+import ArticlesList from "./components/ArticlesList.jsx";
 import CategoriesList from "./components/CategoriesList.jsx";
-import * as PostsMock from "./mocks/PostsMock";
+import * as ArticlesMock from "./mocks/ArticlesMock";
 import * as CategoriesMock from "./mocks/CategoriesMock";
 import { Router, Route, IndexRoute, Link, hashHistory } from 'react-router'
 
@@ -36,7 +36,7 @@ class Articles extends React.Component {
                     <CategoriesList categories={CategoriesMock.categories}/>
                 </aside>
                 <main className="col-md-8 col-md-offset-1">
-                    <PostsList posts={PostsMock.posts}/>
+                    <ArticlesList articles={ArticlesMock.articles}/>
                 </main>
             </div>
         );

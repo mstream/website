@@ -1,9 +1,9 @@
 import React from "react";
 import { Link } from 'react-router'
 
-export default class PostHeader extends React.Component {
+export default class ArticleHeader extends React.Component {
     render() {
-        const {id, title, summary, dateCreated} = this.props.post;
+        const {id, title, summary, dateCreated} = this.props.article;
         const url = `/articles/${id}`;
         return (
             <li>
