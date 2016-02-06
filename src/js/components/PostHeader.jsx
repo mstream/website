@@ -1,15 +1,17 @@
 import React from "react";
+import { Link } from 'react-router'
 
 export default class PostHeader extends React.Component {
     render() {
-        const {title, summary, dateCreated} = this.props.post;
+        const {id, title, summary, dateCreated} = this.props.post;
+        const url = `/articles/${id}`;
         return (
             <li>
-                <a href="#" className="list-group-item">
+                <Link to={url} className="list-group-item">
                     <article className="media">
                         <figure className="media-left media-top">
                             <img
-                                src="http://lorempixel.com/image_output/technics-q-c-240-240-4.jpg"/>
+                                src="http://placehold.it/200x200"/>
                         </figure>
                         <div className="media-body">
                             <header>
@@ -24,7 +26,7 @@ export default class PostHeader extends React.Component {
                             </footer>
                         </div>
                     </article>
-                </a>
+                </Link>
             </li>
         );
     }
