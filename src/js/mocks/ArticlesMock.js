@@ -27,7 +27,7 @@ const content = ((amount) => {
 const articles = ((amount) => {
     const generatedArticles = [];
     for (let i = 1; i <= amount; i++) {
-        generatedArticles.push(new Article(i, new Date(), `Article #${i}`, summary, content));
+        generatedArticles.push(new Article(i.toString(), new Date(), `Article #${i}`, summary, content));
     }
     return generatedArticles;
 })(100);

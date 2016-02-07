@@ -1,17 +1,17 @@
 class Category {
-    constructor(id, name, postsNumber) {
+    constructor(id, name) {
         this.id = id;
         this.name = name;
-        this.postsNumber = postsNumber;
     }
 }
 
 const categories = ((amount) => {
     const generatedCategories = [];
     for (let i = 1; i <= amount; i++) {
-        generatedCategories.push(new Category(i, `Category #${i}`, i));
+        const id = i % 10 + 1;
+        generatedCategories.push(new Category(id.toString(), `Category #${id}`));
     }
     return generatedCategories;
-})(10);
+})(35);
 
 export {categories};

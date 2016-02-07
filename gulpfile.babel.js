@@ -1,4 +1,5 @@
 import gulp from "gulp";
+import jasmine from "gulp-jasmine";
 import buffer from "vinyl-buffer";
 import source from "vinyl-source-stream";
 import browserify from "browserify";
@@ -19,8 +20,16 @@ const options = {
     browserify: {
         basedir: paths.srcRoot,
         debug: true
+    },
+    jasmine: {
+        verbose: true,
+        includeStackTrace: true
     }
 };
+
+gulp.task('test', function () {
+    return gulp.src('./src/js/__test__/**/*.js').pipe(jasmine(options.jasmine));
+});
 
 gulp.task("copy-html", () => {
     gulp.src("./src/**/*.html")
@@ -53,4 +62,4 @@ gulp.task("browserify", () => {
         .pipe(gulp.dest(`${paths.distRoot}`));
 });
 
-gulp.task("default", ["copy-html", "copy-css", "copy-img", "browserify"]);
+gulp.task("default", ["test", "copy-html", "copy-css", "copy-img", "browserify"]);

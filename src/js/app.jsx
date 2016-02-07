@@ -2,10 +2,12 @@ import React from "react";
 import ReactDOM from "react-dom";
 import ArticlesList from "./components/ArticlesList.jsx";
 import Article from "./components/Article.jsx";
-import CategoriesList from "./components/CategoriesList.jsx";
+import FilterableCategoriesList from "./containers/filterableCategoriesList/FilterableCategoriesList";
 import * as ArticlesMock from "./mocks/ArticlesMock";
-import * as CategoriesMock from "./mocks/CategoriesMock";
 import { Router, Route, IndexRoute, Link, hashHistory } from 'react-router'
+import { Provider } from "react-redux"
+import store from "./Store";
+
 
 class App extends React.Component {
     render() {
@@ -34,7 +36,7 @@ class Articles extends React.Component {
         return (
             <div>
                 <aside className="col-md-3">
-                    <CategoriesList categories={CategoriesMock.categories}/>
+                    <FilterableCategoriesList/>
                 </aside>
                 <main className="col-md-8 col-md-offset-1">
                     <ArticlesList articles={ArticlesMock.articles}/>
@@ -43,18 +45,6 @@ class Articles extends React.Component {
         );
     }
 }
-
-/*class Article extends React.Component {
-    render() {
-        return (
-            <div>
-                <main className="col-md-12">
-                    article {this.props.params.id}
-                </main>
-            </div>
-        );
-    }
-}*/
 
 class Placeholder extends React.Component {
     render() {
@@ -67,14 +57,16 @@ class Placeholder extends React.Component {
 }
 
 ReactDOM.render(
-    <Router history={hashHistory}>
-        <Route path="/" component={App}>
-            <IndexRoute component={Placeholder}/>
-            <Route path="/articles" component={Articles}></Route>
-            <Route path="/articles/:id" component={Article}></Route>
-            <Route path="/xxx" component={Placeholder}></Route>
-            <Route path="/yyy" component={Placeholder}></Route>
-        </Route>
-    </Router>,
+    <Provider store={store}>
+        <Router history={hashHistory}>
+            <Route path="/" component={App}>
+                <IndexRoute component={Placeholder}/>
+                <Route path="/articles" component={Articles}></Route>
+                <Route path="/articles/:id" component={Article}></Route>
+                <Route path="/xxx" component={Placeholder}></Route>
+                <Route path="/yyy" component={Placeholder}></Route>
+            </Route>
+        </Router>
+    </Provider>,
     document.getElementById("content")
 );
