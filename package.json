@@ -1,6 +1,6 @@
 {
   "license": "MIT",
-  "description": "blog engine",
+  "description": "website",
   "repository": {
     "type": "git",
     "url": ""
@@ -28,6 +28,7 @@
     "react-dom": "^0.14.7",
     "react-redux": "^4.4.0",
     "react-router": "^2.0.0-rc5",
-    "redux": "^3.3.1"
+    "redux": "^3.3.1",
+    "uuid": "^2.0.1"
   }
 }

@@ -2,7 +2,7 @@ import React, {PropTypes} from "react";
 import classNames from "classnames";
 
 
-const CategoryItem = ({id, name, articlesNumber, enabled, onClick}) => (
+const CategoryItem = ({name, articlesNumber, enabled, onClick}) => (
     <li>
         <a
             href="#"
@@ -19,7 +19,6 @@ const CategoryItem = ({id, name, articlesNumber, enabled, onClick}) => (
 );
 
 CategoryItem.propTypes = {
-    id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     articlesNumber: PropTypes.number.isRequired,
     onClick: PropTypes.func.isRequired

@@ -6,8 +6,8 @@ import * as ArticlesMock from "../mocks/ArticlesMock";
 
 export default class Article extends React.Component {
     render() {
-        const {id, dateCreated, content} = ArticlesMock.articles[this.props.params.id];
-        const title = `Article #${id}`;
+        const {dateCreated, content} = ArticlesMock.articles[0];
+        const title = `Article #${this.props.params.id}`;
         const parsedContent = marked(
             content,
             {

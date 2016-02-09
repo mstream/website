@@ -2,23 +2,23 @@ import * as ActionCreators from "../../ActionCreators";
 
 
 const FilterMapperBuilder = (state) =>
-    (id) => Object.assign(
-        {},
-        state.entities.categories.get(id),
-        {articlesNumber: state.articlesInCategoryCounter.get(id)}
-    );
+    (name) => ({
+        name: name,
+        articlesNumber: state.categoryFilter.articlesInCategoryCounter.get(name)
+    });
+
 
 const mapStateToProps = (state) => {
     const filterMapper = FilterMapperBuilder(state);
     return {
-        availableCategoryFilters: state.availableCategoryFilters.toArray().map(filterMapper),
-        enabledCategoryFilters: state.enabledCategoryFilters.toArray().map(filterMapper)
+        availableFilters: state.categoryFilter.availableFilters.toArray().map(filterMapper),
+        enabledFilters: state.categoryFilter.enabledFilters.toArray().map(filterMapper)
     };
 };
 
 const mapDispatchToProps = (dispatch) => ({
-    onDisabledCategoryClick: (id) => dispatch(ActionCreators.enableCategoryFilter(id)),
-    onEnabledCategoryClick: (id) => dispatch(ActionCreators.disableCategoryFilter(id))
+    onDisabledCategoryClick: (name) => dispatch(ActionCreators.enableCategoryFilter(name)),
+    onEnabledCategoryClick: (name) => dispatch(ActionCreators.disableCategoryFilter(name))
 });
 
 export {mapStateToProps, mapDispatchToProps};

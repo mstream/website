@@ -1,6 +1,5 @@
 class Article {
-    constructor(id, dateCreated, title, summary, content) {
-        this.id = id;
+    constructor(dateCreated, title, summary, content) {
         this.dateCreated = dateCreated;
         this.title = title;
         this.summary = summary;
@@ -27,7 +26,7 @@ const content = ((amount) => {
 const articles = ((amount) => {
     const generatedArticles = [];
     for (let i = 1; i <= amount; i++) {
-        generatedArticles.push(new Article(i.toString(), new Date(), `Article #${i}`, summary, content));
+        generatedArticles.push(new Article(new Date(0), `Article #${i}`, summary, content));
     }
     return generatedArticles;
 })(100);

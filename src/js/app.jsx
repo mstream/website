@@ -1,9 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import ArticlesList from "./components/ArticlesList.jsx";
+import FilterableArticlesList from "./containers/filterableArticlesList/FilterableArticlesList.js";
 import Article from "./components/Article.jsx";
 import FilterableCategoriesList from "./containers/filterableCategoriesList/FilterableCategoriesList";
-import * as ArticlesMock from "./mocks/ArticlesMock";
 import { Router, Route, IndexRoute, Link, hashHistory } from 'react-router'
 import { Provider } from "react-redux"
 import store from "./Store";
@@ -39,7 +38,7 @@ class Articles extends React.Component {
                     <FilterableCategoriesList/>
                 </aside>
                 <main className="col-md-8 col-md-offset-1">
-                    <ArticlesList articles={ArticlesMock.articles}/>
+                    <FilterableArticlesList/>
                 </main>
             </div>
         );

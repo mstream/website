@@ -1,27 +1,27 @@
 import React, {PropTypes} from "react";
 import CategoryItem from "./CategoryItem.jsx";
 
-const CategoriesList = ({availableCategoryFilters, enabledCategoryFilters, onDisabledCategoryClick, onEnabledCategoryClick}) => {
-    const availableCategoriesFragment = availableCategoryFilters.map((category) => (
+const CategoriesList = ({availableFilters, enabledFilters, onDisabledCategoryClick, onEnabledCategoryClick}) => {
+    const availableCategoriesFragment = availableFilters.map((category) => (
         <CategoryItem
-            key={category.id}
+            key={category.name}
             {...category}
             enabled={false}
             onClick={(e) => {
                     e.preventDefault();
-                    onDisabledCategoryClick(category.id);
+                    onDisabledCategoryClick(category.name);
                 }
             }
         />
     ));
-    const enabledCategoriesFragment = enabledCategoryFilters.map((category) => (
+    const enabledCategoriesFragment = enabledFilters.map((category) => (
         <CategoryItem
-            key={category.id}
+            key={category.name}
             {...category}
             enabled={true}
             onClick={(e) => {
                     e.preventDefault();
-                    onEnabledCategoryClick(category.id);
+                    onEnabledCategoryClick(category.name);
                 }
             }
         />
@@ -40,13 +40,11 @@ const CategoriesList = ({availableCategoryFilters, enabledCategoryFilters, onDis
 };
 
 CategoriesList.propTypes = {
-    availableCategoryFilters: PropTypes.arrayOf(PropTypes.shape({
-        id: CategoryItem.propTypes.id,
+    availableFilters: PropTypes.arrayOf(PropTypes.shape({
         name: CategoryItem.propTypes.name,
         articlesNumber: CategoryItem.propTypes.articlesNumber
     })).isRequired,
-    enabledCategoryFilters: PropTypes.arrayOf(PropTypes.shape({
-        id: CategoryItem.propTypes.id,
+    enabledFilters: PropTypes.arrayOf(PropTypes.shape({
         name: CategoryItem.propTypes.name,
         articlesNumber: CategoryItem.propTypes.articlesNumber
     })).isRequired,
