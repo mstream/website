@@ -13,17 +13,24 @@ class App extends React.Component {
         return (
             <div>
                 <div className="row">
-                    <nav className="navbar navbar-default navbar-static-top">
-                        <Link className="navbar-brand" to="/"></Link>
-                        <ul className="nav navbar-nav navbar-left">
-                            <li><Link to="/articles">articles</Link></li>
-                            <li><Link to="/xxx">xxx</Link></li>
-                            <li><Link to="/yyy">yyy</Link></li>
-                        </ul>
+                    <nav className="nav-wrapper">
+                        <Link className="brand-logo left" to="/"></Link>
                     </nav>
+                    <ul className="tabs">
+                        <li className="tab col s2"><Link to="/articles">articles</Link></li>
+                        <li className="tab col s2 "><Link to="/xxx">xxx</Link></li>
+                        <li className="tab col s2"><Link to="/yyy">yyy</Link></li>
+                    </ul>
                 </div>
                 <div className="row">
                     {this.props.children}
+                </div>
+                <div className="row">
+                    <footer className="page-footer">
+                        <div className="footer-copyright">
+                            © 2016 Maciej Laciak
+                        </div>
+                    </footer>
                 </div>
             </div>
         );
@@ -34,10 +41,10 @@ class Articles extends React.Component {
     render() {
         return (
             <div>
-                <aside className="col-md-3">
+                <aside className="col s3">
                     <FilterableCategoriesList/>
                 </aside>
-                <main className="col-md-8 col-md-offset-1">
+                <main className="col s8 offset-s1">
                     <FilterableArticlesList/>
                 </main>
             </div>
@@ -60,10 +67,10 @@ ReactDOM.render(
         <Router history={hashHistory}>
             <Route path="/" component={App}>
                 <IndexRoute component={Placeholder}/>
-                <Route path="/articles" component={Articles}></Route>
-                <Route path="/articles/:id" component={Article}></Route>
-                <Route path="/xxx" component={Placeholder}></Route>
-                <Route path="/yyy" component={Placeholder}></Route>
+                <Route path="articles" component={Articles}></Route>
+                <Route path="articles/:id" component={Article}></Route>
+                <Route path="xxx" component={Placeholder}></Route>
+                <Route path="yyy" component={Placeholder}></Route>
             </Route>
         </Router>
     </Provider>,

@@ -10,10 +10,10 @@ class Article {
 const summary = ((amount) => {
     const generatedSummary = [];
     for (let i = 1; i <= amount; i++) {
-        generatedSummary.push("summary");
+        generatedSummary.push(`summary${i}`);
     }
     return generatedSummary.join(" ");
-})(50);
+})(150);
 
 const content = ((amount) => {
     const generatedContent = [];
@@ -21,7 +21,7 @@ const content = ((amount) => {
         generatedContent.push("Content content content\n```javascript\nvar xxx = 'xxx';\n```\n");
     }
     return generatedContent.join("\n");
-})(3);
+})(5);
 
 const articles = ((amount) => {
     const generatedArticles = [];

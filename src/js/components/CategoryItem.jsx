@@ -1,18 +1,12 @@
 import React, {PropTypes} from "react";
-import classNames from "classnames";
 
-
-const CategoryItem = ({name, articlesNumber, enabled, onClick}) => (
+const CategoryItem = ({name, articlesNumber, onClick}) => (
     <li>
         <a
             href="#"
             onClick={onClick}
-            className={classNames("list-group-item", {"active": enabled})}>
-            <span
-                className={classNames("glyphicon", {"glyphicon-minus": enabled}, {"glyphicon-plus": !enabled})}
-                aria-hidden="true">
-            </span>
-            <span className="text-center">{name}</span>
+            className="collection-item">
+            {name}
             <span className="badge">{articlesNumber}</span>
         </a>
     </li>
