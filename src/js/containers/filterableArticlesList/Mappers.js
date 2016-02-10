@@ -1,4 +1,4 @@
-import * as ActionCreators from "../../ActionCreators";
+import * as ActionCreators from "../../actions/ActionCreators";
 
 
 const FilterMapperBuilder = (state) =>

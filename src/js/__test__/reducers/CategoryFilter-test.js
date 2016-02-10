@@ -1,5 +1,5 @@
 import categoryFilter from "../../reducers/categoryFilter";
-import * as ActionCreators from "../../ActionCreators";
+import * as ActionCreators from "../../actions/ActionCreators";
 import Immutable from "immutable";
 
 describe("CategoryFilter reducer", () => {

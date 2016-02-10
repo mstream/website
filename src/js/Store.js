@@ -1,6 +1,6 @@
 import { createStore } from "redux";
 import app from "./reducers/App";
-import * as ActionCreators from "./ActionCreators";
+import * as ActionCreators from "./actions/ActionCreators";
 import * as ArticlesMock from "./mocks/ArticlesMock";
 import * as CategoriesMock from "./mocks/CategoriesMock";
 

@@ -1,6 +1,6 @@
 import Immutable from "immutable";
 import { combineReducers } from 'redux'
-import Actions from "../Actions";
+import Actions from "../actions/Actions";
 import entities from "./entities";
 import articles from "./articles";
 import categoryFilter from "./categoryFilter";

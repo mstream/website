@@ -1,5 +1,5 @@
 import articles from "../../reducers/articles";
-import * as ActionCreators from "../../ActionCreators";
+import * as ActionCreators from "../../actions/ActionCreators";
 import Immutable from "immutable";
 
 describe("Articles reducer", () => {

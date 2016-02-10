@@ -1,5 +1,5 @@
 import Immutable from "immutable";
-import Actions from "../Actions";
+import Actions from "../actions/Actions";
 
 
 const initialState = {

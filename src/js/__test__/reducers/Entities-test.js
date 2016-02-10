@@ -1,5 +1,5 @@
 import entities from "../../reducers/entities";
-import * as ActionCreators from "../../ActionCreators";
+import * as ActionCreators from "../../actions/ActionCreators";
 
 
 describe("Entities reducer", () => {
