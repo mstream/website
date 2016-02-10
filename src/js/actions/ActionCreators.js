@@ -1,17 +1,18 @@
 import Actions from "./Actions";
 import uuid from "uuid";
 
-const addArticle = (title, summary, content, dateCreated, id = uuid.v4())  => {
+const addArticle = (title, summary, content, dateCreated, categories, id = uuid.v4())  => {
     return Object.assign(
         {},
         {type: Actions.ADD_ARTICLE},
-        {id, dateCreated, title, summary, content}
+        {id, dateCreated, title, summary, content, categories}
     );
 };
 
-const addCategoryTag = (name) => Object.assign({
+const addCategoryTag = (name, articleId) => Object.assign({
     type: Actions.ADD_CATEGORY_TAG,
-    name: name
+    name: name,
+    articleId: articleId
 });
 
 const enableCategoryFilter = (name) => ({

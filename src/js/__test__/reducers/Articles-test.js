@@ -25,6 +25,7 @@ describe("Articles reducer", () => {
                 article.summary,
                 article.content,
                 article.dateCreated,
+                [],
                 article.id
             )
         );
@@ -56,6 +57,7 @@ describe("Articles reducer", () => {
                 article2.summary,
                 article2.content,
                 article2.dateCreated,
+                [],
                 article2.id
             )
         );

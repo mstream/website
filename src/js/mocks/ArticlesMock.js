@@ -1,11 +1,23 @@
 class Article {
-    constructor(dateCreated, title, summary, content) {
+    constructor(dateCreated, title, summary, content, categories = []) {
         this.dateCreated = dateCreated;
         this.title = title;
         this.summary = summary;
         this.content = content;
+        this.categories = categories;
     }
 }
+
+const CATEGORIES_AMOUNT = 35;
+
+const categories = ((amount) => {
+    const generatedCategories = [];
+    for (let i = 1; i <= amount; i++) {
+        const id = i % 10 + 1;
+        generatedCategories.push(`Category #${id}`);
+    }
+    return generatedCategories;
+})(CATEGORIES_AMOUNT);
 
 const summary = ((amount) => {
     const generatedSummary = [];
@@ -26,7 +38,7 @@ const content = ((amount) => {
 const articles = ((amount) => {
     const generatedArticles = [];
     for (let i = 1; i <= amount; i++) {
-        generatedArticles.push(new Article(new Date(0), `Article #${i}`, summary, content));
+        generatedArticles.push(new Article(new Date(0), `Article #${i}`, summary, content, [categories[i % CATEGORIES_AMOUNT]]));
     }
     return generatedArticles;
 })(100);

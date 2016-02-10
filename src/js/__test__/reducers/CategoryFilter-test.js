@@ -33,6 +33,7 @@ describe("CategoryFilter reducer", () => {
         const initialState = {
             availableFilters: Immutable.OrderedSet.of(categoryName1),
             enabledFilters: Immutable.OrderedSet(),
+            articlesCategories: Immutable.Map(),
             articlesInCategoryCounter: Immutable.Map({
                 [categoryName1]: 1
             })
@@ -55,6 +56,7 @@ describe("CategoryFilter reducer", () => {
         const initialState = {
             availableFilters: Immutable.OrderedSet.of(categoryName),
             enabledFilters: Immutable.OrderedSet(),
+            articlesCategories: Immutable.Map(),
             articlesInCategoryCounter: Immutable.Map({
                 [categoryName]: 1
             })
@@ -73,6 +75,7 @@ describe("CategoryFilter reducer", () => {
         const initialState = {
             availableFilters: Immutable.OrderedSet.of(categoryName),
             enabledFilters: Immutable.OrderedSet(),
+            articlesCategories: Immutable.Map(),
             articlesInCategoryCounter: Immutable.Map({
                 [categoryName]: 1
             })
@@ -92,6 +95,7 @@ describe("CategoryFilter reducer", () => {
         const initialState = {
             availableFilters: Immutable.OrderedSet(),
             enabledFilters: Immutable.OrderedSet.of(categoryName),
+            articlesCategories: Immutable.Map(),
             articlesInCategoryCounter: Immutable.Map({
                 [categoryName]: 1
             })

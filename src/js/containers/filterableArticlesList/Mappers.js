@@ -1,13 +1,26 @@
 import * as ActionCreators from "../../actions/ActionCreators";
 
+const ArticleFilterBuilder = enabledFilters => article => {
+    for (let filter of enabledFilters) {
+        if (article.categories.indexOf(filter) !== -1) {
+            return true;
+        }
+    }
+    return false;
+};
 
-const FilterMapperBuilder = (state) =>
-    (id) => state.entities.articles.get(id);
+const ArticleMapperBuilder = state => id => state.entities.articles.get(id);
 
 const mapStateToProps = (state) => {
-    const articleMapper = FilterMapperBuilder(state);
+    const articleMapper = ArticleMapperBuilder(state);
+    let articles = state.articles.toArray().map(articleMapper);
+    const enabledFilters = state.categoryFilter.enabledFilters;
+    if (enabledFilters.length > 0) {
+        const articleFilter = ArticleFilterBuilder(enabledFilters);
+        articles = articles.filter(articleFilter);
+    }
     return {
-        articles: state.articles.toArray().map(articleMapper)
+        articles: articles
     };
 };
 

@@ -1,11 +1,11 @@
 import React, {PropTypes} from "react";
 import { Link } from 'react-router'
 
-const ArticleThumbnail = ({id, title, summary, dateCreated}) => {
+const ArticleThumbnail = ({id, title, summary, dateCreated, categories}) => {
     const url = `/articles/${id}`;
     return (
         <li>
-            <article className="card large">
+            <article className="card large hoverable">
                 <figure className="card-image">
                     <img src="http://loremflickr.com/500/100"/>
                     <span className="card-title">{title}</span>

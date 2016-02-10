@@ -5,6 +5,7 @@ import Actions from "../actions/Actions";
 const initialState = {
     availableFilters: Immutable.OrderedSet(),
     enabledFilters: Immutable.OrderedSet(),
+    articlesCategories: Immutable.Map(),
     articlesInCategoryCounter: Immutable.Map()
 };
 
@@ -13,9 +14,19 @@ const categoryFilter = (state = initialState,
     switch (action.type) {
         case Actions.ADD_CATEGORY_TAG:
         {
-            let {articlesInCategoryCounter, availableFilters} = state;
+            let {articlesCategories, articlesInCategoryCounter, availableFilters} = state;
 
-            const currentQuantity = state.articlesInCategoryCounter.get(action.name) || 0;
+            const currentCategories =
+                articlesCategories.get(action.articleId) || Immutable.OrderedSet();
+
+            articlesCategories = articlesCategories.set(
+                action.articleId,
+                currentCategories.add(action.name)
+            );
+
+            const currentQuantity =
+                state.articlesInCategoryCounter.get(action.name) || 0;
+
             articlesInCategoryCounter = articlesInCategoryCounter.set(
                 action.name,
                 currentQuantity + 1
@@ -27,6 +38,7 @@ const categoryFilter = (state = initialState,
                 state,
                 {
                     availableFilters: availableFilters,
+                    articlesCategories: articlesCategories,
                     articlesInCategoryCounter: articlesInCategoryCounter
                 });
         }
