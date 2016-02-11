@@ -1,20 +1,18 @@
 import Immutable from "immutable";
 import Actions from "../actions/Actions";
+import {createReducer} from "./ReducerBuilder";
 
 
 const initialState = Immutable.OrderedSet();
 
-
-const articles = (state = initialState,
-                  action = {}) => {
-    switch (action.type) {
-        case Actions.ADD_ARTICLE:
-        {
-            return state.add(action.id);
-        }
-        default:
-            return state;
-    }
+const handlers = {
+    [Actions.ADD_ARTICLE]: (state, action) => state.add(action.id)
 };
+
+const articles = createReducer(
+    initialState,
+    handlers
+);
+
 
 export default articles;
