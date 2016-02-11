@@ -8,7 +8,8 @@ class Article {
     }
 }
 
-const CATEGORIES_AMOUNT = 35;
+const ARTICLES_AMOUNT = 100;
+const CATEGORIES_AMOUNT = 50;
 
 const categories = ((amount) => {
     const generatedCategories = [];
@@ -41,6 +42,6 @@ const articles = ((amount) => {
         generatedArticles.push(new Article(new Date(0), `Article #${i}`, summary, content, [categories[i % CATEGORIES_AMOUNT]]));
     }
     return generatedArticles;
-})(100);
+})(ARTICLES_AMOUNT);
 
 export {articles};

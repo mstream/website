@@ -6,7 +6,7 @@ describe("mapStateToProps function", () => {
         const state = {
             articles: Immutable.OrderedSet.of("1", "2"),
             categoryFilter: {
-                enabledFilters: []
+                enabledFilters: Immutable.OrderedSet()
             },
             entities: {
                 articles: Immutable.Map({
@@ -46,7 +46,7 @@ describe("mapStateToProps function", () => {
         const state = {
             articles: Immutable.OrderedSet.of("1", "2", "3"),
             categoryFilter: {
-                enabledFilters: ["category1"]
+                enabledFilters: Immutable.OrderedSet.of("category1")
             },
             entities: {
                 articles: Immutable.Map({

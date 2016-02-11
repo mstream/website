@@ -15,7 +15,7 @@ const mapStateToProps = (state) => {
     const articleMapper = ArticleMapperBuilder(state);
     let articles = state.articles.toArray().map(articleMapper);
     const enabledFilters = state.categoryFilter.enabledFilters;
-    if (enabledFilters.length > 0) {
+    if (!enabledFilters.isEmpty()) {
         const articleFilter = ArticleFilterBuilder(enabledFilters);
         articles = articles.filter(articleFilter);
     }
