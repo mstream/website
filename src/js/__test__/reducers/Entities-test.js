@@ -1,8 +1,12 @@
 import entities from "../../reducers/entities";
-import * as ActionCreators from "../../actions/ActionCreators";
+import ActionCreatorFactory from "../../actions/ActionCreatorFactory";
 
 
 describe("Entities reducer", () => {
+
+    const generatedId = "GENERATED_ID";
+    const actionCreator = new ActionCreatorFactory(() => generatedId);
+
     describe("when entities state is initialized", () => {
         const initialState = entities();
         it("articles should be empty", () => {
@@ -22,14 +26,8 @@ describe("Entities reducer", () => {
             dateCreated: new Date(0),
             categories: ["category1", "category2"]
         };
-        const state = entities(initialState, ActionCreators.addArticle(
-            article.title,
-            article.summary,
-            article.content,
-            article.dateCreated,
-            article.categories,
-            article.id));
-        it("all ", () => {
+        const state = entities(initialState, actionCreator.addArticle(article));
+        it("all its properties should be retained", () => {
             expect(state.articles.size).toBe(1);
             expect(state.articles.get("1").id).toBe("1");
             expect(state.articles.get("1").title).toBe("title1");

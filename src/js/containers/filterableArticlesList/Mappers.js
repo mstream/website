@@ -1,4 +1,4 @@
-import * as ActionCreators from "../../actions/ActionCreators";
+import * as ActionCreators from "../../actions/ActionCreatorFactory";
 
 const ArticleFilterBuilder = enabledFilters => article => {
     for (let filter of enabledFilters) {

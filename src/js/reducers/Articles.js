@@ -6,7 +6,7 @@ import {createReducer} from "./ReducerBuilder";
 const initialState = Immutable.OrderedSet();
 
 const handlers = {
-    [Actions.ADD_ARTICLE]: (state, action) => state.add(action.id)
+    [Actions.ADD_ARTICLE]: (state, action) => state.add(action.payload.id)
 };
 
 const articles = createReducer(

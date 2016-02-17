@@ -15,22 +15,22 @@ const handlers = {
         let {articlesCategories, articlesInCategoryCounter, availableFilters} = state;
 
         const currentCategories =
-            articlesCategories.get(action.articleId) || Immutable.OrderedSet();
+            articlesCategories.get(action.payload.articleId) || Immutable.OrderedSet();
 
         articlesCategories = articlesCategories.set(
-            action.articleId,
-            currentCategories.add(action.name)
+            action.payload.articleId,
+            currentCategories.add(action.payload.name)
         );
 
         const currentQuantity =
-            state.articlesInCategoryCounter.get(action.name) || 0;
+            state.articlesInCategoryCounter.get(action.payload.name) || 0;
 
         articlesInCategoryCounter = articlesInCategoryCounter.set(
-            action.name,
+            action.payload.name,
             currentQuantity + 1
         );
 
-        availableFilters = availableFilters.add(action.name);
+        availableFilters = availableFilters.add(action.payload.name);
         return Object.assign(
             {},
             state,
@@ -42,8 +42,8 @@ const handlers = {
     },
     [Actions.ENABLE_CATEGORY_FILTER]: (state, action) => {
         let {availableFilters, enabledFilters} = state;
-        availableFilters = availableFilters.delete(action.name);
-        enabledFilters = enabledFilters.add(action.name);
+        availableFilters = availableFilters.delete(action.payload.name);
+        enabledFilters = enabledFilters.add(action.payload.name);
         return Object.assign(
             {},
             state, {
@@ -54,8 +54,8 @@ const handlers = {
     },
     [Actions.DISABLE_CATEGORY_FILTER]: (state, action) => {
         let {availableFilters, enabledFilters} = state;
-        availableFilters = availableFilters.add(action.name);
-        enabledFilters = enabledFilters.delete(action.name);
+        availableFilters = availableFilters.add(action.payload.name);
+        enabledFilters = enabledFilters.delete(action.payload.name);
         return Object.assign(
             {},
             state, {

@@ -1,4 +1,4 @@
-import * as ActionCreators from "../../actions/ActionCreators";
+import actionCreator from "../../actions/ActionCreator";
 
 
 const FilterMapperBuilder = (state) =>
@@ -17,8 +17,8 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-    onDisabledCategoryClick: (name) => dispatch(ActionCreators.enableCategoryFilter(name)),
-    onEnabledCategoryClick: (name) => dispatch(ActionCreators.disableCategoryFilter(name))
+    onDisabledCategoryClick: (name) => dispatch(actionCreator.enableCategoryFilter({name})),
+    onEnabledCategoryClick: (name) => dispatch(actionCreator.disableCategoryFilter({name}))
 });
 
 export {mapStateToProps, mapDispatchToProps};

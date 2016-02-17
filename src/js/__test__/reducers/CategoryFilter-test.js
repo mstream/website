@@ -1,8 +1,13 @@
 import categoryFilter from "../../reducers/categoryFilter";
-import * as ActionCreators from "../../actions/ActionCreators";
+import ActionCreatorFactory from "../../actions/ActionCreatorFactory";
 import Immutable from "immutable";
 
+
 describe("CategoryFilter reducer", () => {
+
+    const generatedId = "GENERATED_ID";
+    const actionCreator = new ActionCreatorFactory(() => generatedId);
+
     describe("when category filter state is initialized", () => {
         const initialState = categoryFilter();
         it("there should be no available filters", () => {
@@ -15,10 +20,12 @@ describe("CategoryFilter reducer", () => {
             expect(initialState.articlesInCategoryCounter.size).toBe(0);
         });
     });
+
     describe("when a new category tag is created", () => {
         const categoryName = "category1";
+        const category = {name: categoryName};
         const initialState = categoryFilter();
-        const state = categoryFilter(initialState, ActionCreators.addCategoryTag(categoryName));
+        const state = categoryFilter(initialState, actionCreator.addCategoryTag(category));
         it("it should be added to the available filters set", () => {
             expect(state.availableFilters.size).toBe(1);
             expect(state.availableFilters.has(categoryName)).toBeTruthy();
@@ -27,9 +34,12 @@ describe("CategoryFilter reducer", () => {
             expect(state.articlesInCategoryCounter.get(categoryName)).toBe(1);
         });
     });
+
     describe("when a second, different category tag is created", () => {
         const categoryName1 = "category1";
         const categoryName2 = "category2";
+        const category1 = {name: categoryName1};
+        const category2 = {name: categoryName2};
         const initialState = {
             availableFilters: Immutable.OrderedSet.of(categoryName1),
             enabledFilters: Immutable.OrderedSet(),
@@ -38,7 +48,7 @@ describe("CategoryFilter reducer", () => {
                 [categoryName1]: 1
             })
         };
-        const state = categoryFilter(initialState, ActionCreators.addCategoryTag(categoryName2));
+        const state = categoryFilter(initialState, actionCreator.addCategoryTag(category2));
         it("the available filters set should contain both of them", () => {
             expect(state.availableFilters.size).toBe(2);
             expect(state.availableFilters.has(categoryName1)).toBeTruthy();
@@ -51,8 +61,10 @@ describe("CategoryFilter reducer", () => {
             expect(state.articlesInCategoryCounter.get(categoryName2)).toBe(1);
         });
     });
+
     describe("when a second, same category tag is created", () => {
         const categoryName = "category";
+        const category = {name: categoryName};
         const initialState = {
             availableFilters: Immutable.OrderedSet.of(categoryName),
             enabledFilters: Immutable.OrderedSet(),
@@ -61,7 +73,7 @@ describe("CategoryFilter reducer", () => {
                 [categoryName]: 1
             })
         };
-        const state = categoryFilter(initialState, ActionCreators.addCategoryTag(categoryName));
+        const state = categoryFilter(initialState, actionCreator.addCategoryTag(category));
         it("the available filters set should not change", () => {
             expect(state.availableFilters.size).toBe(1);
             expect(state.availableFilters.has(categoryName)).toBeTruthy();
@@ -70,8 +82,10 @@ describe("CategoryFilter reducer", () => {
             expect(state.articlesInCategoryCounter.get(categoryName)).toBe(2);
         });
     });
+
     describe("when a filter is enabled", () => {
         const categoryName = "category";
+        const category = {name: categoryName};
         const initialState = {
             availableFilters: Immutable.OrderedSet.of(categoryName),
             enabledFilters: Immutable.OrderedSet(),
@@ -80,7 +94,7 @@ describe("CategoryFilter reducer", () => {
                 [categoryName]: 1
             })
         };
-        const state = categoryFilter(initialState, ActionCreators.enableCategoryFilter(categoryName));
+        const state = categoryFilter(initialState, actionCreator.enableCategoryFilter(category));
         it("the enabled filter should be removed from the available filters set", () => {
             expect(state.availableFilters.size).toBe(0);
             expect(state.availableFilters.has(categoryName)).toBeFalsy();
@@ -90,8 +104,10 @@ describe("CategoryFilter reducer", () => {
             expect(state.enabledFilters.has(categoryName)).toBeTruthy();
         });
     });
+
     describe("when a filter is disabled", () => {
         const categoryName = "category";
+        const category = {name: categoryName};
         const initialState = {
             availableFilters: Immutable.OrderedSet(),
             enabledFilters: Immutable.OrderedSet.of(categoryName),
@@ -100,7 +116,7 @@ describe("CategoryFilter reducer", () => {
                 [categoryName]: 1
             })
         };
-        const state = categoryFilter(initialState, ActionCreators.disableCategoryFilter(categoryName));
+        const state = categoryFilter(initialState, actionCreator.disableCategoryFilter(category));
         it("the disabled filter should be removed from the enabled filters set", () => {
             expect(state.enabledFilters.size).toBe(0);
             expect(state.enabledFilters.has(categoryName)).toBeFalsy();

@@ -11,8 +11,8 @@ const initialState = {
 const handlers = {
     [Actions.ADD_ARTICLE]: (state, action) => {
         const articles = state.articles.set(
-            action.id,
-            action
+            action.payload.id,
+            action.payload
         );
         return Object.assign(
             {},
@@ -22,8 +22,8 @@ const handlers = {
     },
     [Actions.ADD_CATEGORY_TAG]: (state, action) => {
         const categories = state.categories.set(
-            action.name,
-            action.name
+            action.payload.name,
+            action.payload.name
         );
         return Object.assign(
             {},

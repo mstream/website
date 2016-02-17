@@ -1,8 +1,13 @@
 import articles from "../../reducers/articles";
-import * as ActionCreators from "../../actions/ActionCreators";
+import ActionCreatorFactory from "../../actions/ActionCreatorFactory";
 import Immutable from "immutable";
 
+
 describe("Articles reducer", () => {
+
+    const generatedId = "GENERATED_ID";
+    const actionCreator = new ActionCreatorFactory(() => generatedId);
+
     describe("when articles state is initialized", () => {
         const initialState = articles();
         it("set should be empty", () => {
@@ -20,14 +25,7 @@ describe("Articles reducer", () => {
         const initialState = articles();
         const state = articles(
             initialState,
-            ActionCreators.addArticle(
-                article.title,
-                article.summary,
-                article.content,
-                article.dateCreated,
-                [],
-                article.id
-            )
+            actionCreator.addArticle(article)
         );
         it("set should contain the created article", () => {
             expect(state.size).toBe(1);
@@ -52,14 +50,7 @@ describe("Articles reducer", () => {
         const initialState = Immutable.Set.of(article1.id);
         const state = articles(
             initialState,
-            ActionCreators.addArticle(
-                article2.title,
-                article2.summary,
-                article2.content,
-                article2.dateCreated,
-                [],
-                article2.id
-            )
+            actionCreator.addArticle(article2)
         );
         it("set should contain both articles", () => {
             expect(state.size).toBe(2);
