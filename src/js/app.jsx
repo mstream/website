@@ -31,7 +31,7 @@ class Articles extends React.Component {
                 <aside className="col s3">
                     <FilterableCategoriesList/>
                 </aside>
-                <main className="col s8 offset-s1">
+                <main className="col s9">
                     <FilterableArticlesList/>
                 </main>
             </div>

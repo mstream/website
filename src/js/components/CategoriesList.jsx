@@ -25,22 +25,51 @@ const CategoriesList = ({availableFilters, enabledFilters, onDisabledCategoryCli
             }
         />
     ));
-    const availableCategoriesClassNames = classNames(
+
+    const anyFilterEnabled = enabledFilters.length > 0;
+
+    const disabledColor = "red accent-1";
+    const enabledColor = "green accent-1";
+
+    const availableCategoriesClasses = classNames(
         "collection with-header",
         {hide: availableFilters.length == 0});
-    const enabledCategoriesClassNames = classNames(
+    const enabledCategoriesClasses = classNames(
         "collection with-header",
-        {hide: enabledFilters.length == 0});
+        {hide: !anyFilterEnabled});
+
+    const availableCategoriesHeaderClasses = classNames(
+        "collection-header",
+        {[enabledColor]: !anyFilterEnabled},
+        {[disabledColor]: anyFilterEnabled}
+    );
+    const enabledCategoriesHeaderClasses = classNames(
+        "collection-header",
+        [enabledColor]
+    );
+
+    const enabledCategoriesHeader = "Enabled filters";
+    const availableCategoriesHeader =
+        (anyFilterEnabled ? "Disabled" : "Available") + " filters";
+
     return (
         <div>
-            <ul className={enabledCategoriesClassNames}>
-                <li className="collection-header"><h4>Active filters</h4></li>
-                {enabledCategoriesItems}
-            </ul>
-            <ul className={availableCategoriesClassNames}>
-                <li className="collection-header"><h4>Available filters</h4></li>
-                {availableCategoriesItems}
-            </ul>
+            <div className="card">
+                <ul className={enabledCategoriesClasses}>
+                    <li className={enabledCategoriesHeaderClasses}>
+                        <h4>{enabledCategoriesHeader}</h4>
+                    </li>
+                    {enabledCategoriesItems}
+                </ul>
+            </div>
+            <div className="card">
+                <ul className={availableCategoriesClasses}>
+                    <li className={availableCategoriesHeaderClasses}>
+                        <h4>{availableCategoriesHeader}</h4>
+                    </li>
+                    {availableCategoriesItems}
+                </ul>
+            </div>
         </div>
 
     );

@@ -11,8 +11,8 @@ const paths = (() => {
         srcRoot = "./src",
         distRoot = "./dist",
         js = "js",
-        appFile = "app.jsx",
-        bundleName = "app.js";
+        appFile = "App.jsx",
+        bundleName = "App.js";
     return {srcRoot, distRoot, js, appFile, bundleName};
 })();
 
