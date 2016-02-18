@@ -9,7 +9,7 @@ class Article {
 }
 
 const ARTICLES_AMOUNT = 100;
-const CATEGORIES_AMOUNT = 50;
+const CATEGORIES_AMOUNT = 100;
 
 const categories = ((amount) => {
     const generatedCategories = [];

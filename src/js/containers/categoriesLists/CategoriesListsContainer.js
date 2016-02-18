@@ -1,11 +1,11 @@
 import { connect } from "react-redux"
-import CategoriesList from "../../components/CategoriesList.jsx";
+import CategoriesLists from "../../components/CategoriesLists.jsx";
 import * as Mappers from "./Mappers";
 
 
 const FilterableCategoriesList = connect(
     Mappers.mapStateToProps,
     Mappers.mapDispatchToProps
-)(CategoriesList);
+)(CategoriesLists);
 
 export default FilterableCategoriesList;
