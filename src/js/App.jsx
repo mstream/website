@@ -11,7 +11,7 @@ import store from "./Store";
 
 
 const App = (props) => (
-    <div>
+    <div className="content">
         <Header/>
         <Main children={props.children}/>
         <Footer/>
@@ -19,9 +19,7 @@ const App = (props) => (
 );
 
 const Placeholder = () => (
-    <div>
-        <p className="flow-text">placeholder</p>
-    </div>
+    <p className="flow-text">placeholder</p>
 );
 
 ReactDOM.render(

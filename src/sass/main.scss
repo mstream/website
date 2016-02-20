@@ -1,12 +1,7 @@
-ul.categories-filter-list a.collection-item {
-  height: 32px;
-  padding-top: 6px;
-}
-
 header, main, footer {
-  padding-left: 240px;
+  margin-left: 240px;
   @media only screen and (max-width: 992px) {
-    padding-left: 0;
+    margin-left: 0;
   }
 }
 
@@ -15,6 +10,34 @@ header, main, footer {
   @media only screen and (max-width: 992px) {
     width: 100%;
   }
+}
+
+main {
+  padding: 20px;
+}
+
+ul.categories-filter-list a.collection-item {
+  height: 32px;
+  padding-top: 6px;
+}
+
+.main-background {
+  @extend .grey, .darken-4;
+}
+
+.main-foreground {
+  @extend .grey, .darken-3;
+}
+
+
+.content {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+main {
+  flex: 1 0 auto;
 }
 
 

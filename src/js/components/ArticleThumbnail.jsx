@@ -5,7 +5,7 @@ const ArticleThumbnail = ({id, title, summary, dateCreated, categories}) => {
     const url = `/articles/${id}`;
     return (
         <li>
-            <article className="card large hoverable">
+            <article className="card large hoverable main-foreground">
                 <figure className="card-image">
                     <img src="http://loremflickr.com/500/100"/>
                     <span className="card-title">{title}</span>

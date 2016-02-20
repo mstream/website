@@ -23,7 +23,7 @@ const options = {
         debug: true
     },
     sass : {
-        outputStyle: "compressed"
+        outputStyle: "uncompressed"
     },
     jasmine: {
         verbose: true,
