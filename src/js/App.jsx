@@ -29,11 +29,8 @@ ReactDOM.render(
         <Router history={hashHistory}>
             <Route path="/" component={App}>
                 <IndexRoute component={Placeholder}/>
-                <Route path="articles"
-                       component={FilterableArticlesList}></Route>
-                <Route path="articles/:id" component={Article}></Route>
-                <Route path="xxx" component={Placeholder}></Route>
-                <Route path="yyy" component={Placeholder}></Route>
+                <Route path="articles" component={FilterableArticlesList}/>
+                <Route path="articles/:id" component={Article}/>
             </Route>
         </Router>
     </Provider>,

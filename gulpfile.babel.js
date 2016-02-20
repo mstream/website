@@ -4,6 +4,7 @@ import buffer from "vinyl-buffer";
 import source from "vinyl-source-stream";
 import browserify from "browserify";
 import babelify from "babelify";
+import sass from "gulp-sass";
 
 
 const paths = (() => {
@@ -21,6 +22,9 @@ const options = {
         basedir: paths.srcRoot,
         debug: true
     },
+    sass : {
+        outputStyle: "compressed"
+    },
     jasmine: {
         verbose: true,
         includeStackTrace: true
@@ -36,10 +40,15 @@ gulp.task("copy-html", () => {
         .pipe(gulp.dest(`${paths.distRoot}`));
 });
 
-gulp.task("copy-css", () => {
-    gulp.src("./src/**/*.css")
-        .pipe(gulp.dest(`${paths.distRoot}`));
-});
+gulp.task(
+    "compile-css",
+    () => gulp.src("./src/sass/**/*.scss")
+        .pipe(sass(options.sass).on(
+            "error",
+            sass.logError)
+        )
+        .pipe(gulp.dest(`${paths.distRoot}/css`))
+);
 
 gulp.task("copy-img", () => {
     gulp.src("./src/**/*.png")
@@ -62,4 +71,4 @@ gulp.task("browserify", () => {
         .pipe(gulp.dest(`${paths.distRoot}`));
 });
 
-gulp.task("default", ["test", "copy-html", "copy-css", "copy-img", "browserify"]);
+gulp.task("default", ["test", "copy-html", "compile-css", "copy-img", "browserify"]);

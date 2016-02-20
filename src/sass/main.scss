@@ -1,0 +1,21 @@
+ul.categories-filter-list a.collection-item {
+  height: 32px;
+  padding-top: 6px;
+}
+
+header, main, footer {
+  padding-left: 240px;
+  @media only screen and (max-width: 992px) {
+    padding-left: 0;
+  }
+}
+
+.navbar-fixed nav {
+  width: calc(100% - 240px);
+  @media only screen and (max-width: 992px) {
+    width: 100%;
+  }
+}
+
+
+
