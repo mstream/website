@@ -26,7 +26,7 @@ const options = {
         outputStyle: "uncompressed"
     },
     jasmine: {
-        verbose: true,
+        verbose: false,
         includeStackTrace: true
     }
 };

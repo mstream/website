@@ -1,3 +1,5 @@
+import {junitArticle} from "./JunitArticle";
+
 class Article {
     constructor(dateCreated, title, summary, content, categories = []) {
         this.dateCreated = dateCreated;
@@ -8,8 +10,8 @@ class Article {
     }
 }
 
-const ARTICLES_AMOUNT = 100;
-const CATEGORIES_AMOUNT = 100;
+const ARTICLES_AMOUNT = 10;
+const CATEGORIES_AMOUNT = 10;
 
 const categories = ((amount) => {
     const generatedCategories = [];
@@ -43,5 +45,7 @@ const articles = ((amount) => {
     }
     return generatedArticles;
 })(ARTICLES_AMOUNT);
+
+articles.push(junitArticle);
 
 export {articles};

@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import FilterableArticlesList from "./containers/filterableArticlesList/FilterableArticlesList";
-import Article from "./components/Article.jsx";
+import ArticleContainer from "./containers/article/ArticleContainer";
 import Header from "./components/Header.jsx";
 import Main from "./components/Main.jsx";
 import Footer from "./components/Footer.jsx";
@@ -28,7 +28,7 @@ ReactDOM.render(
             <Route path="/" component={App}>
                 <IndexRoute component={Placeholder}/>
                 <Route path="articles" component={FilterableArticlesList}/>
-                <Route path="articles/:id" component={Article}/>
+                <Route path="articles/:id" component={ArticleContainer}/>
             </Route>
         </Router>
     </Provider>,

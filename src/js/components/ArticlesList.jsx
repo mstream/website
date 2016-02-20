@@ -1,6 +1,7 @@
 import React, {PropTypes} from "react";
 import ArticleThumbnail from "./ArticleThumbnail.jsx";
 
+
 const ArticlesList = ({articles}) => {
     const articlesFragment = articles.map((article) => (
         <ArticleThumbnail
@@ -16,5 +17,6 @@ const ArticlesList = ({articles}) => {
 ArticlesList.propTypes = {
     articles: PropTypes.array.isRequired
 };
+
 
 export default ArticlesList;
