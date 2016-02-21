@@ -1,7 +1,7 @@
 import React, {PropTypes} from "react";
 import classNames from "classnames";
 import CategoriesList from "./CategoriesList.jsx";
-import CategoryItem from "./CategoryItem.jsx";
+import CategoryItem from "./CategoryListItem.jsx";
 
 
 const disabledColor = "red accent-1";

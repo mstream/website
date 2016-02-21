@@ -1,5 +1,5 @@
 import React, {PropTypes} from "react";
-import CategoryItem from "./CategoryItem.jsx";
+import CategoryItem from "./CategoryListItem.jsx";
 import classNames from "classnames";
 
 

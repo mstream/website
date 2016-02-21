@@ -1,5 +1,6 @@
 import Immutable from "immutable";
-import {mapStateToProps, mapDispatchToProps} from "../../../containers/filterableArticlesList/Mappers";
+import {mapStateToProps, mapDispatchToProps} from "../../../containers/articlesList/Mappers";
+
 
 describe("mapStateToProps function", () => {
     it("should map state to props properly", () => {

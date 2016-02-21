@@ -1,19 +1,11 @@
 import React from "react";
 import { Link } from "react-router"
-import marked from "marked";
-import highlight from "highlight.js";
+import {articleContentTransformation} from "./ArticleContentTransformation";
 
 
 const Article = ({article}) => {
     const {title, dateCreated, content} = article;
-    const parsedContent = marked(
-        content, {
-            sanitize: true,
-            highlight: (code, lang) =>
-                highlight.highlightAuto(code, [lang]).value
-        }
-    );
-    const rawContent = {__html: parsedContent};
+    const rawContent = {__html: articleContentTransformation(content)};
     return (
         <article className="container-fluid">
             <header className="row page-header">

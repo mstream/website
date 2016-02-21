@@ -3,7 +3,7 @@ import { Link } from 'react-router'
 import SideBar from "./SideBar.jsx";
 
 
-const Header = () => (
+const Header = (props) => (
     <header>
         <div className="navbar-fixed">
             <nav>
@@ -14,7 +14,7 @@ const Header = () => (
                 </div>
             </nav>
         </div>
-        <SideBar/>
+        <SideBar content={props.sidebarContent}/>
     </header>
 );
 

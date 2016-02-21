@@ -4,7 +4,7 @@ import { Link } from 'react-router'
 
 const Main = (props) => (
     <main>
-        {props.children}
+        {props.content}
     </main>
 );
 

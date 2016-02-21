@@ -1,7 +1,7 @@
 import React, {PropTypes} from "react";
 
 
-const CategoryItem = ({name, articlesNumber, onClick}) => (
+const CategoryListItem = ({name, articlesNumber, onClick}) => (
     <li>
         <a
             href="#"
@@ -13,11 +13,11 @@ const CategoryItem = ({name, articlesNumber, onClick}) => (
     </li>
 );
 
-CategoryItem.propTypes = {
+CategoryListItem.propTypes = {
     name: PropTypes.string.isRequired,
     articlesNumber: PropTypes.number.isRequired,
     onClick: PropTypes.func.isRequired
 };
 
 
-export default CategoryItem;
+export default CategoryListItem;

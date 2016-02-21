@@ -5,7 +5,7 @@ import CategoriesListsContainer from "../containers/categoriesLists/CategoriesLi
 
 const SideBar = (props) => (
     <aside className="side-nav fixed">
-        <CategoriesListsContainer/>
+        {props.content}
     </aside>
 );
 
