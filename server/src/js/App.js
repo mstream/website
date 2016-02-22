@@ -1,10 +1,15 @@
 import express from "express";
 
 
-var app = express();
+const options = {
+    httpPort: 3000
+};
 
-app.get("/", (request, response) => {
-    response.send("OK");
-});
+const app = express();
 
-app.listen(3000);
+app.use(express.static(__dirname + '/../../client/dist'));
+
+app.listen(
+    options.httpPort,
+    () => console.log(`Server is listening on http port ${options.httpPort}`)
+);
