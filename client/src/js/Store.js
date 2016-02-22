@@ -8,8 +8,6 @@ import * as ArticlesMock from "./mocks/ArticlesMock";
 Minilog.enable();
 var log = Minilog("app");
 
-
-
 const logger = store => next => action => {
     log.debug("dispatching action: ", action);
     const result = next(action);

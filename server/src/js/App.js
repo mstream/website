@@ -1,5 +1,9 @@
 import express from "express";
+import Minilog from "minilog";
 
+
+Minilog.enable();
+var log = Minilog("app");
 
 const options = {
     httpPort: 3000
@@ -11,5 +15,5 @@ app.use(express.static(__dirname + '/../../client/dist'));
 
 app.listen(
     options.httpPort,
-    () => console.log(`Server is listening on http port ${options.httpPort}`)
+    () => log.info(`Server is listening on http port ${options.httpPort}`)
 );
