@@ -1,6 +1,6 @@
 {
   "license": "MIT",
-  "description": "website",
+  "description": "website client",
   "repository": {
     "type": "git",
     "url": ""
@@ -15,7 +15,6 @@
     "gulp": "^3.9.0",
     "gulp-jasmine": "^2.2.1",
     "gulp-jest-iojs": "^1.0.3",
-    "jasmine": "^2.4.1",
     "jsdom": "^8.0.4",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0"
@@ -39,14 +38,5 @@
     "redux-actions": "^0.9.1",
     "redux-thunk": "^1.0.3",
     "uuid": "^2.0.1"
-  },
-  "scripts": {
-    "test": "jest"
-  },
-  "jest": {
-    "scriptPreprocessor": "node_modules/babel-jest",
-    "unmockedModulePathPatterns": [
-      ".*"
-    ]
   }
 }
