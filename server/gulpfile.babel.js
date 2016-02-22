@@ -24,10 +24,15 @@ gulp.task('test', () =>
     gulp.src("./src/js/__tests__").pipe(jest(options.jest))
 );
 
+gulp.task('copy-resources', () => {
+    return gulp.src(`${paths.srcRoot}/js/**/!(*.js)`)
+        .pipe(gulp.dest(paths.distRoot));
+});
+
 gulp.task('babel', () => {
     return gulp.src(`${paths.srcRoot}/js/**/*.js`)
         .pipe(babel())
         .pipe(gulp.dest(paths.distRoot));
 });
 
-gulp.task("default", ["test", "babel"]);
+gulp.task("default", ["test", "copy-resources", "babel"]);

@@ -1,0 +1,11 @@
+{
+  "id": "2",
+  "title": "Testing using TestNG framework",
+  "summary": "testng summary",
+  "categories": [
+    "testing",
+    "java",
+    "testng"
+  ],
+  "dateCreated": "xxx"
+}

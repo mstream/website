@@ -1,5 +1,6 @@
 import express from "express";
 import Minilog from "minilog";
+import router from "./Router";
 
 
 Minilog.enable();
@@ -11,7 +12,8 @@ const options = {
 
 const app = express();
 
-app.use(express.static(__dirname + '/../../client/dist'));
+app.use(express.static(`${__dirname}/../../client/dist`));
+app.use("/api", router);
 
 app.listen(
     options.httpPort,
