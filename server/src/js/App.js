@@ -1,6 +1,7 @@
 import express from "express";
 import Minilog from "minilog";
 import router from "./Router";
+import loggingInterceptor from "./LoggingInterceptor";
 
 
 Minilog.enable();
@@ -12,6 +13,7 @@ const options = {
 
 const app = express();
 
+app.use(loggingInterceptor);
 app.use(express.static(`${__dirname}/../../client/dist`));
 app.use("/api", router);
 
