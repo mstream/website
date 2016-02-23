@@ -1,13 +1,23 @@
 import Immutable from "immutable";
+import configureMockStore from "redux-mock-store"
+import thunk from "redux-thunk"
+import sinon from "sinon"
 import ActionCreatorFactory from "../../actions/ActionCreatorFactory";
 import Actions from "../../actions/Actions";
 
 
+const middlewares = [thunk]
+const mockStore = configureMockStore(middlewares)
+
 describe("Action Creators", () => {
 
     const generatedId = "GENERATED_ID";
-    const actionCreator = new ActionCreatorFactory(() => generatedId);
-    
+    const urlBase = "http://example.com";
+    const actionCreator = new ActionCreatorFactory(
+        () => generatedId,
+        url => `${urlBase}${url}`
+    );
+
     describe("when creating add article action with article id", () => {
         const id = "1";
         const title = "title";
@@ -80,5 +90,159 @@ describe("Action Creators", () => {
                 }
             });
         });
+    });
+    describe("when fetching articles requested", () => {
+        it("request and received action with a response should be dispatched", done => {
+            const article1 = {
+                id: "1",
+                title: "title1",
+                summary: "summary1",
+                content: "content1",
+                dateCreated: new Date(0)
+            };
+            const article2 = {
+                id: "2",
+                title: "title2",
+                summary: "summary2",
+                content: "content2",
+                dateCreated: new Date(0)
+            };
+            const receivedArticles = [
+                article1,
+                article2
+            ];
+            const server = sinon.fakeServer.create();
+            server.respondWith("GET", `${generatedId}/api/articles`, [
+                200,
+                {"Content-Type": "application/json"},
+                JSON.stringify(receivedArticles)
+            ]);
+            const expectedActions = [
+                {
+                    type: Actions.REQUEST_ARTICLES,
+                    payload: undefined
+                },
+                {
+                    type: Actions.RECEIVE_ARTICLES,
+                    payload: receivedArticles
+                }
+            ];
+            const store = mockStore(null, expectedActions, done);
+            store.dispatch(actionCreator.fetchArticles())
+        })
+    });
+    describe("when fetching articles failed", () => {
+        it("request and received action with an error should be dispatched", done => {
+            const article1 = {
+                id: "1",
+                title: "title1",
+                summary: "summary1",
+                content: "content1",
+                dateCreated: new Date(0)
+            };
+            const article2 = {
+                id: "2",
+                title: "title2",
+                summary: "summary2",
+                content: "content2",
+                dateCreated: new Date(0)
+            };
+            const receivedArticles = [
+                article1,
+                article2
+            ];
+            const server = sinon.fakeServer.create();
+            server.respondWith("GET", `${generatedId}/api/articles`, [
+                500,
+                {},
+                ""
+            ]);
+            const expectedActions = [
+                {
+                    type: Actions.REQUEST_ARTICLES,
+                    payload: undefined
+                },
+                {
+                    type: Actions.RECEIVE_ARTICLES,
+                    payload: receivedArticles
+                }
+            ];
+            const store = mockStore(null, expectedActions, done);
+            store.dispatch(actionCreator.fetchArticles())
+        })
+    });
+    describe("when fetching article content requested", () => {
+        it("request and received action with a response should be dispatched", done => {
+            const articleWithoutContent = {
+                id: "1",
+                title: "title1",
+                summary: "summary1",
+                content: undefined,
+                dateCreated: new Date(0)
+            };
+            const articleWithContent = Object.assign(
+                {},
+                articleWithoutContent,
+                {content: "content"}
+            );
+            const server = sinon.fakeServer.create();
+            server.respondWith("GET", `${generatedId}/api/articles/1`, [
+                200,
+                {"Content-Type": "application/json"},
+                JSON.stringify(articleWithContent)
+            ]);
+            const expectedActions = [
+                {
+                    type: Actions.REQUEST_ARTICLE_CONTENT,
+                    payload: undefined
+                },
+                {
+                    type: Actions.RECEIVE_ARTICLE_CONTENT,
+                    payload: articleWithContent
+                }
+            ];
+            const store = mockStore(null, expectedActions, done);
+            store.dispatch(actionCreator.fetchArticleContent(articleWithoutContent.id))
+        })
+    });
+    describe("when fetching article content failed", () => {
+        it("request and received action with an error should be dispatched", done => {
+            const article1 = {
+                id: "1",
+                title: "title1",
+                summary: "summary1",
+                content: "content1",
+                dateCreated: new Date(0)
+            };
+            const article2 = {
+                id: "2",
+                title: "title2",
+                summary: "summary2",
+                content: "content2",
+                dateCreated: new Date(0)
+            };
+            const receivedArticles = [
+                article1,
+                article2
+            ];
+            const server = sinon.fakeServer.create();
+            server.respondWith("GET", `${generatedId}/api/articles/1`, [
+                500,
+                {},
+                ""
+            ]);
+            const expectedActions = [
+                {
+                    type: Actions.REQUEST_ARTICLES,
+                    payload: undefined
+                },
+                {
+                    type: Actions.RECEIVE_ARTICLES,
+                    payload: receivedArticles
+                }
+            ];
+            const store = mockStore(null, expectedActions, done);
+            store.dispatch(actionCreator.fetchArticles())
+        })
     });
 });

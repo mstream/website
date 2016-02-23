@@ -21,6 +21,7 @@ const Articles = (() => {
         );
         const articleContent = fs.readFileSync(`${dir}/content.md`, "utf-8");
         article.content = articleContent;
+        article.dateCreated = new Date();
         articles[article.id] = article;
     }
 

@@ -4,20 +4,25 @@ import classNames from "classnames";
 
 
 const CategoriesList = ({
+    isLoading,
     categories,
     onCategoryClick,
     header,
     headerColor}) => {
 
+    if (isLoading) {
+        return (
+            <div className="progress">
+                <div className="indeterminate"></div>
+            </div>
+        );
+    }
+
     const categoriesItems = categories.map((category) => (
         <CategoryItem
             key={category.name}
             {...category}
-            onClick={(e) => {
-                    e.preventDefault();
-                    onCategoryClick(category.name);
-                }
-            }
+            onCategoryClick={() => onCategoryClick(category.name)}
         />
     ));
 

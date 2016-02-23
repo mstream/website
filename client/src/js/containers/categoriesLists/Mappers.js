@@ -17,8 +17,8 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-    onDisabledCategoryClick: (name) => dispatch(actionCreator.enableCategoryFilter({name})),
-    onEnabledCategoryClick: (name) => dispatch(actionCreator.disableCategoryFilter({name}))
+    onDisabledCategoryClick: name => dispatch(actionCreator.enableCategoryFilter({name})),
+    onEnabledCategoryClick: name => dispatch(actionCreator.disableCategoryFilter({name}))
 });
 
 export {mapStateToProps, mapDispatchToProps};

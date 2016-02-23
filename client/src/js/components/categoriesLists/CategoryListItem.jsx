@@ -1,11 +1,15 @@
 import React, {PropTypes} from "react";
 
 
-const CategoryListItem = ({name, articlesNumber, onClick}) => (
+const CategoryListItem = ({name, articlesNumber, onCategoryClick}) => (
     <li>
         <a
             href="#"
-            onClick={onClick}
+            onClick={e => {
+                    e.preventDefault();
+                    onCategoryClick();
+                }
+            }
             className="collection-item">
             {name}
             <span className="badge">{articlesNumber}</span>
@@ -16,7 +20,7 @@ const CategoryListItem = ({name, articlesNumber, onClick}) => (
 CategoryListItem.propTypes = {
     name: PropTypes.string.isRequired,
     articlesNumber: PropTypes.number.isRequired,
-    onClick: PropTypes.func.isRequired
+    onCategoryClick: PropTypes.func.isRequired
 };
 
 

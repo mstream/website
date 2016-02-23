@@ -1,7 +1,8 @@
 import React, {PropTypes} from "react";
-import { Link } from 'react-router'
+import { Link } from "react-router"
 
-const ArticleThumbnail = ({id, title, summary, dateCreated, categories}) => {
+
+const ArticleThumbnail = ({id, title, summary, dateCreated, categories, onReadMoreClick}) => {
     const url = `/articles/${id}`;
     return (
         <li>
@@ -14,7 +15,13 @@ const ArticleThumbnail = ({id, title, summary, dateCreated, categories}) => {
                     <p className="flow-text">{summary}</p>
                 </div>
                 <footer className="card-action">
-                    <Link to={url}>Read more...</Link>
+                    <Link to={url}
+                          onClick={e => {
+                                onReadMoreClick(id);
+                          }
+                      }>
+                        Read more...
+                    </Link>
                 </footer>
             </article>
         </li>
@@ -27,5 +34,6 @@ ArticleThumbnail.propTypes = {
     summary: PropTypes.string.isRequired,
     dateCreated: PropTypes.object.isRequired
 };
+
 
 export default ArticleThumbnail;

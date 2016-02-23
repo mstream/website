@@ -3,7 +3,7 @@ import thunkMiddleware from "redux-thunk"
 import Minilog from "minilog";
 import app from "./reducers/App";
 import actionCreator from "./actions/ActionCreator";
-import * as ArticlesMock from "./mocks/ArticlesMock";
+
 
 Minilog.enable();
 var log = Minilog("app");
@@ -23,10 +23,7 @@ const store = createStore(
     )
 );
 
+store.dispatch(actionCreator.fetchArticles());
 
-ArticlesMock.articles.forEach((article) => {
-    store.dispatch(actionCreator.addArticle(article));
-    article.categories.forEach((categoryName) => store.dispatch(actionCreator.addCategoryTag({name: categoryName})));
-});
 
 export default store;

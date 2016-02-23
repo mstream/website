@@ -9,7 +9,7 @@ import HeadersListContainer from "./containers/headersList/HeadersListContainer"
 import Header from "./components/Header.jsx";
 import Main from "./components/Main.jsx";
 import Footer from "./components/Footer.jsx";
-import { Router, Route, IndexRoute, Link, createMemoryHistory } from 'react-router'
+import { Router, Route, IndexRoute, Link, createMemoryHistory } from "react-router"
 import { Provider } from "react-redux"
 import store from "./Store";
 

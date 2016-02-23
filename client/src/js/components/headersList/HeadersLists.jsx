@@ -2,10 +2,17 @@ import React, {PropTypes} from "react";
 import classNames from "classnames";
 import marked from "marked";
 import {articleContentToHeadersMapper} from "./ArticleContentToHeadersMapper";
-import HeadersListItem from "./HeadersListItem";
+import HeadersListItem from "./HeadersListItem.jsx";
 
 
-const HeadersLists = ({articleContent}) => {
+const HeadersLists = ({isLoading, articleContent}) => {
+    if (isLoading) {
+        return (
+            <div className="progress">
+                <div className="indeterminate"></div>
+            </div>
+        );
+    }
     const headerItems = articleContentToHeadersMapper(articleContent).map((header, i) => (
         <HeadersListItem key={i}
                          headerId={`header${i}`}
@@ -19,7 +26,6 @@ const HeadersLists = ({articleContent}) => {
 };
 
 HeadersLists.propTypes = {
-    articleContent: PropTypes.string.isRequired
 };
 
 

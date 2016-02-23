@@ -1,26 +1,17 @@
 import Immutable from "immutable";
 import Actions from "../actions/Actions";
-import {createReducer} from "./ReducerBuilder";
+import {handleActions} from "redux-actions";
 
 
 const initialState = {
     availableFilters: Immutable.OrderedSet(),
     enabledFilters: Immutable.OrderedSet(),
-    articlesCategories: Immutable.Map(),
     articlesInCategoryCounter: Immutable.Map()
 };
 
 const handlers = {
     [Actions.ADD_CATEGORY_TAG]: (state, action) => {
-        let {articlesCategories, articlesInCategoryCounter, availableFilters} = state;
-
-        const currentCategories =
-            articlesCategories.get(action.payload.articleId) || Immutable.OrderedSet();
-
-        articlesCategories = articlesCategories.set(
-            action.payload.articleId,
-            currentCategories.add(action.payload.name)
-        );
+        let {articlesInCategoryCounter, availableFilters} = state;
 
         const currentQuantity =
             state.articlesInCategoryCounter.get(action.payload.name) || 0;
@@ -36,7 +27,31 @@ const handlers = {
             state,
             {
                 availableFilters: availableFilters,
-                articlesCategories: articlesCategories,
+                articlesInCategoryCounter: articlesInCategoryCounter
+            });
+    },
+    [Actions.RECEIVE_ARTICLES]: (state, action) => {
+        let {articlesInCategoryCounter, availableFilters} = state;
+        const articles = action.payload;
+        const categoriesArrays = articles.map(article => article.categories);
+        const categories = categoriesArrays.reduce(
+            (previousCategory, currentCategory) =>
+                previousCategory.concat(currentCategory),
+            []);
+        for (let category of categories) {
+            const currentQuantity =
+                articlesInCategoryCounter.get(category) || 0;
+            articlesInCategoryCounter = articlesInCategoryCounter.set(
+                category,
+                currentQuantity + 1
+            );
+            availableFilters = availableFilters.add(category);
+        }
+        return Object.assign(
+            {},
+            state,
+            {
+                availableFilters: availableFilters,
                 articlesInCategoryCounter: articlesInCategoryCounter
             });
     },
@@ -66,9 +81,9 @@ const handlers = {
     }
 };
 
-const categoryFilter = createReducer(
-    initialState,
-    handlers
+const categoryFilter = handleActions(
+    handlers,
+    initialState
 );
 
 

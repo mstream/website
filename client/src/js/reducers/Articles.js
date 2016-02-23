@@ -1,17 +1,32 @@
 import Immutable from "immutable";
 import Actions from "../actions/Actions";
-import {createReducer} from "./ReducerBuilder";
+import {handleActions} from "redux-actions";
 
 
-const initialState = Immutable.OrderedSet();
-
-const handlers = {
-    [Actions.ADD_ARTICLE]: (state, action) => state.add(action.payload.id)
+const initialState = {
+    items: Immutable.OrderedSet(),
 };
 
-const articles = createReducer(
-    initialState,
-    handlers
+const handlers = {
+    [Actions.ADD_ARTICLE]: {
+        next: (state, action) => Object.assign(
+            {},
+            state,
+            {items: state.items.add(action.payload.id)})
+    },
+    [Actions.RECEIVE_ARTICLES]: {
+        next: (state, action) =>  Object.assign(
+            {},
+            state,
+            {
+                items: Immutable.OrderedSet(action.payload.map(article => article.id)),
+            })
+    }
+};
+
+const articles = handleActions(
+    handlers,
+    initialState
 );
 
 

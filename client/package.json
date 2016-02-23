@@ -16,6 +16,8 @@
     "gulp-jasmine": "^2.2.1",
     "gulp-jest-iojs": "^1.0.3",
     "jsdom": "^8.0.4",
+    "redux-mock-store": "0.0.6",
+    "sinon": "^1.17.3",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0"
   },

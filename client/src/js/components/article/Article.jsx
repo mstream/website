@@ -10,6 +10,13 @@ const Article = class extends React.Component {
     }
 
     render() {
+        if (this.props.isLoading) {
+            return (
+                <div className="progress">
+                    <div className="indeterminate"></div>
+                </div>
+            );
+        }
         const {title, dateCreated, content} = this.props.article;
         const rawContent = {__html: articleContentTransformation(content)};
         return (
@@ -29,8 +36,10 @@ const Article = class extends React.Component {
         );
     }
 
-    componentDidMount() {
-        $(".scrollspy").scrollSpy();
+    componentDidUpdate() {
+        if (!this.props.isLoading) {
+            $(".scrollspy").scrollSpy();
+        }
     }
 };
 

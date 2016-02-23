@@ -1,6 +1,8 @@
 import categoryFilter from "../../reducers/categoryFilter";
 import ActionCreatorFactory from "../../actions/ActionCreatorFactory";
+import Actions from "./../../actions/Actions";
 import Immutable from "immutable";
+import { createAction } from "redux-actions";
 
 
 describe("CategoryFilter reducer", () => {
@@ -9,7 +11,7 @@ describe("CategoryFilter reducer", () => {
     const actionCreator = new ActionCreatorFactory(() => generatedId);
 
     describe("when category filter state is initialized", () => {
-        const initialState = categoryFilter();
+        const initialState = categoryFilter(undefined, {});
         it("there should be no available filters", () => {
             expect(initialState.availableFilters.size).toBe(0);
         });
@@ -24,7 +26,11 @@ describe("CategoryFilter reducer", () => {
     describe("when a new category tag is created", () => {
         const categoryName = "category1";
         const category = {name: categoryName};
-        const initialState = categoryFilter();
+        const initialState = {
+            availableFilters: Immutable.OrderedSet(),
+            enabledFilters: Immutable.OrderedSet(),
+            articlesInCategoryCounter: Immutable.Map()
+        };
         const state = categoryFilter(initialState, actionCreator.addCategoryTag(category));
         it("it should be added to the available filters set", () => {
             expect(state.availableFilters.size).toBe(1);
@@ -43,7 +49,6 @@ describe("CategoryFilter reducer", () => {
         const initialState = {
             availableFilters: Immutable.OrderedSet.of(categoryName1),
             enabledFilters: Immutable.OrderedSet(),
-            articlesCategories: Immutable.Map(),
             articlesInCategoryCounter: Immutable.Map({
                 [categoryName1]: 1
             })
@@ -68,7 +73,6 @@ describe("CategoryFilter reducer", () => {
         const initialState = {
             availableFilters: Immutable.OrderedSet.of(categoryName),
             enabledFilters: Immutable.OrderedSet(),
-            articlesCategories: Immutable.Map(),
             articlesInCategoryCounter: Immutable.Map({
                 [categoryName]: 1
             })
@@ -83,13 +87,57 @@ describe("CategoryFilter reducer", () => {
         });
     });
 
+    describe("when articles are received", () => {
+        const initialState = {
+            availableFilters: Immutable.OrderedSet(),
+            enabledFilters: Immutable.OrderedSet(),
+            articlesInCategoryCounter: Immutable.Map()
+        };
+        const article1 = {
+            id: "1",
+            title: "title1",
+            summary: "summary1",
+            content: "content1",
+            categories: ["categoryA", "categoryB"],
+            dateCreated: new Date(0)
+        };
+        const article2 = {
+            id: "2",
+            title: "title2",
+            summary: "summary2",
+            content: "content2",
+            categories: ["categoryB", "categoryA"],
+            dateCreated: new Date(0)
+        };
+        const article3 = {
+            id: "3",
+            title: "title3",
+            summary: "summary3",
+            content: "content3",
+            categories: ["categoryC"],
+            dateCreated: new Date(0)
+        };
+        const receivedArticles = [article1, article2, article3];
+        const state = categoryFilter(initialState, createAction(Actions.RECEIVE_ARTICLES)(receivedArticles));
+        it("there should be 3 available categories", () => {
+            expect(state.availableFilters.size).toBe(3);
+            expect(state.availableFilters.has("categoryA")).toBeTruthy();
+            expect(state.availableFilters.has("categoryB")).toBeTruthy();
+            expect(state.availableFilters.has("categoryC")).toBeTruthy();
+        });
+        it("categories counters should be proper", () => {
+            expect(state.articlesInCategoryCounter.get("categoryA")).toBe(2);
+            expect(state.articlesInCategoryCounter.get("categoryB")).toBe(2);
+            expect(state.articlesInCategoryCounter.get("categoryC")).toBe(1);
+        });
+    });
+
     describe("when a filter is enabled", () => {
         const categoryName = "category";
         const category = {name: categoryName};
         const initialState = {
             availableFilters: Immutable.OrderedSet.of(categoryName),
             enabledFilters: Immutable.OrderedSet(),
-            articlesCategories: Immutable.Map(),
             articlesInCategoryCounter: Immutable.Map({
                 [categoryName]: 1
             })
@@ -111,7 +159,6 @@ describe("CategoryFilter reducer", () => {
         const initialState = {
             availableFilters: Immutable.OrderedSet(),
             enabledFilters: Immutable.OrderedSet.of(categoryName),
-            articlesCategories: Immutable.Map(),
             articlesInCategoryCounter: Immutable.Map({
                 [categoryName]: 1
             })

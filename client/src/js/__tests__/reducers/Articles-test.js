@@ -1,3 +1,5 @@
+import { createAction } from "redux-actions";
+import Actions from "./../../actions/Actions";
 import articles from "../../reducers/articles";
 import ActionCreatorFactory from "../../actions/ActionCreatorFactory";
 import Immutable from "immutable";
@@ -9,9 +11,9 @@ describe("Articles reducer", () => {
     const actionCreator = new ActionCreatorFactory(() => generatedId);
 
     describe("when articles state is initialized", () => {
-        const initialState = articles();
+        const initialState = articles(undefined, {});
         it("set should be empty", () => {
-            expect(initialState.size).toBe(0);
+            expect(initialState.items.size).toBe(0);
         });
     });
     describe("when a one articles is added", () => {
@@ -22,14 +24,16 @@ describe("Articles reducer", () => {
             content: "content1",
             dateCreated: new Date(0)
         };
-        const initialState = articles();
+        const initialState = {
+            items: Immutable.OrderedSet()
+        };
         const state = articles(
             initialState,
             actionCreator.addArticle(article)
         );
         it("set should contain the created article", () => {
-            expect(state.size).toBe(1);
-            expect(state.has(article.id)).toBeTruthy();
+            expect(state.items.size).toBe(1);
+            expect(state.items.has(article.id)).toBeTruthy();
         });
     });
     describe("when a second articles is added", () => {
@@ -47,15 +51,77 @@ describe("Articles reducer", () => {
             content: "content2",
             dateCreated: new Date(0)
         };
-        const initialState = Immutable.Set.of(article1.id);
+        const initialState = {
+            items: Immutable.OrderedSet.of(article1.id)
+        };
         const state = articles(
             initialState,
             actionCreator.addArticle(article2)
         );
         it("set should contain both articles", () => {
-            expect(state.size).toBe(2);
-            expect(state.has(article1.id)).toBeTruthy();
-            expect(state.has(article2.id)).toBeTruthy();
+            expect(state.items.size).toBe(2);
+            expect(state.items.has(article1.id)).toBeTruthy();
+            expect(state.items.has(article2.id)).toBeTruthy();
+        });
+    });
+    describe("when articles are received", () => {
+        const initialState = {
+            items: Immutable.OrderedSet()
+        };
+        const article1 = {
+            id: "1",
+            title: "title1",
+            summary: "summary1",
+            content: "content1",
+            dateCreated: new Date(0)
+        };
+        const article2 = {
+            id: "2",
+            title: "title2",
+            summary: "summary2",
+            content: "content2",
+            dateCreated: new Date(0)
+        };
+        const receivedArticles = [article1, article2];
+        const state = articles(
+            initialState,
+            createAction(Actions.RECEIVE_ARTICLES)(receivedArticles)
+        );
+        it("articles should be added to the articles list", () => {
+            expect(state.items.size).toBe(2);
+            expect(state.items.has(article1.id)).toBeTruthy();
+            expect(state.items.has(article2.id)).toBeTruthy();
+        });
+    });
+    describe("when articles receive failed", () => {
+        const article1 = {
+            id: "1",
+            title: "title1",
+            summary: "summary1",
+            content: "content1",
+            dateCreated: new Date(0)
+        };
+        const article2 = {
+            id: "2",
+            title: "title2",
+            summary: "summary2",
+            content: "content2",
+            dateCreated: new Date(0)
+        };
+        const initialState = {
+            items: Immutable.OrderedSet.of(
+                article1.id,
+                article2.id
+            )
+        };
+        const state = articles(
+            initialState,
+            createAction(Actions.RECEIVE_ARTICLES)(new Error())
+        );
+        it("article list should remain the same", () => {
+            expect(state.items.size).toBe(2);
+            expect(state.items.has(article1.id)).toBeTruthy();
+            expect(state.items.has(article2.id)).toBeTruthy();
         });
     });
 });

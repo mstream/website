@@ -5,7 +5,12 @@ import {mapStateToProps, mapDispatchToProps} from "../../../containers/articlesL
 describe("mapStateToProps function", () => {
     it("should map state to props properly", () => {
         const state = {
-            articles: Immutable.OrderedSet.of("1", "2"),
+            articles: {
+                items: Immutable.OrderedSet.of("1", "2"),
+                ui: {
+                    isFetching: false
+                }
+            },
             categoryFilter: {
                 enabledFilters: Immutable.OrderedSet()
             },
@@ -28,6 +33,14 @@ describe("mapStateToProps function", () => {
                         categories: []
                     }
                 })
+            },
+            userInterface: {
+                articlesList: {
+                    isFetching: false
+                },
+                articleView: {
+                    isFetching: false
+                }
             }
         };
         const props = mapStateToProps(state);
@@ -45,7 +58,12 @@ describe("mapStateToProps function", () => {
     });
     it("should filter out article not belonging to enabled category", () => {
         const state = {
-            articles: Immutable.OrderedSet.of("1", "2", "3"),
+            articles: {
+                items: Immutable.OrderedSet.of("1", "2", "3"),
+                ui: {
+                    isFetching: false
+                }
+            },
             categoryFilter: {
                 enabledFilters: Immutable.OrderedSet.of("category1")
             },
@@ -76,6 +94,14 @@ describe("mapStateToProps function", () => {
                         categories: ["category1", "category3"]
                     }
                 })
+            },
+            userInterface: {
+                articlesList: {
+                    isFetching: false
+                },
+                articleView: {
+                    isFetching: false
+                }
             }
         };
         const props = mapStateToProps(state);

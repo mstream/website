@@ -1,6 +1,6 @@
 import Immutable from "immutable";
+import {handleActions} from "redux-actions";
 import Actions from "../actions/Actions";
-import {createReducer} from "./ReducerBuilder";
 
 
 const initialState = {
@@ -17,7 +17,7 @@ const handlers = {
         return Object.assign(
             {},
             state,
-            {articles: articles}
+            {articles}
         );
     },
     [Actions.ADD_CATEGORY_TAG]: (state, action) => {
@@ -28,14 +28,32 @@ const handlers = {
         return Object.assign(
             {},
             state,
-            {categories: categories}
+            {categories}
+        );
+    },
+    [Actions.RECEIVE_ARTICLES]: (state, action) => {
+        const articles = Immutable.Map(
+            action.payload.map(article => [article.id, article])
+        );
+        return Object.assign(
+            {},
+            state,
+            {articles}
+        );
+    },
+    [Actions.RECEIVE_ARTICLE_CONTENT]: (state, action) => {
+        const articles = state.articles.set(action.payload.id, action.payload);
+        return Object.assign(
+            {},
+            state,
+            {articles}
         );
     }
 };
 
-const entities = createReducer(
-    initialState,
-    handlers
+const entities = handleActions(
+    handlers,
+    initialState
 );
 
 
