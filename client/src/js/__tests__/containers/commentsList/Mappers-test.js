@@ -47,15 +47,15 @@ describe("mapStateToProps function", () => {
             state,
             ownProps
         );
-        expect(props.comments.length).toBe(2);
-        expect(props.comments[0].id).toBe("1");
+        expect(props.comments.length).toEqual(2);
+        expect(props.comments[0].id).toEqual("1");
         expect(props.comments[0].dateCreated).toEqual(new Date(0));
-        expect(props.comments[0].author).toBe("author1");
-        expect(props.comments[0].content).toBe("content1");
-        expect(props.comments[1].id).toBe("2");
+        expect(props.comments[0].author).toEqual("author1");
+        expect(props.comments[0].content).toEqual("content1");
+        expect(props.comments[1].id).toEqual("2");
         expect(props.comments[1].dateCreated).toEqual(new Date(0));
-        expect(props.comments[1].author).toBe("author2");
-        expect(props.comments[1].content).toBe("content2");
+        expect(props.comments[1].author).toEqual("author2");
+        expect(props.comments[1].content).toEqual("content2");
     });
 });
 

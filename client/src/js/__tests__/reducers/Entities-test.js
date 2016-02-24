@@ -13,10 +13,10 @@ describe("Entities reducer", () => {
     describe("when entities state is initialized", () => {
         const initialState = entities(undefined, {});
         it("articles should be empty", () => {
-            expect(initialState.articles.size).toBe(0);
+            expect(initialState.articles.size).toEqual(0);
         });
         it("categories should be empty", () => {
-            expect(initialState.categories.size).toBe(0);
+            expect(initialState.categories.size).toEqual(0);
         });
     });
     describe("when entities article is added", () => {
@@ -33,11 +33,11 @@ describe("Entities reducer", () => {
         };
         const state = entities(initialState, actionCreator.addArticle(article));
         it("all its properties should be retained", () => {
-            expect(state.articles.size).toBe(1);
-            expect(state.articles.get("1").id).toBe("1");
-            expect(state.articles.get("1").title).toBe("title1");
-            expect(state.articles.get("1").summary).toBe("summary1");
-            expect(state.articles.get("1").content).toBe("content1");
+            expect(state.articles.size).toEqual(1);
+            expect(state.articles.get("1").id).toEqual("1");
+            expect(state.articles.get("1").title).toEqual("title1");
+            expect(state.articles.get("1").summary).toEqual("summary1");
+            expect(state.articles.get("1").content).toEqual("content1");
             expect(state.articles.get("1").dateCreated).toEqual(new Date(0));
             expect(state.articles.get("1").categories).toEqual(["category1", "category2"]);
 
@@ -67,7 +67,7 @@ describe("Entities reducer", () => {
             createAction(Actions.RECEIVE_ARTICLES)(receivedArticles)
         );
         it("articles should be added to the articles list", () => {
-            expect(state.articles.size).toBe(2);
+            expect(state.articles.size).toEqual(2);
             expect(state.articles.get(article1.id).id).toEqual(article1.id);
             expect(state.articles.get(article2.id).id).toEqual(article2.id);
         });
@@ -96,7 +96,7 @@ describe("Entities reducer", () => {
             createAction(Actions.RECEIVE_ARTICLE_CONTENT)(articleWithContent)
         );
         it("content should be added to the existing article", () => {
-            expect(state.articles.size).toBe(1);
+            expect(state.articles.size).toEqual(1);
             expect(state.articles.get(articleWithoutContent.id).id).toEqual(articleWithoutContent.id);
             expect(state.articles.get(articleWithoutContent.id).content).toEqual(articleWithContent.content);
         });
@@ -129,7 +129,7 @@ describe("Entities reducer", () => {
             })
         );
         it("comments should be added to the comments list", () => {
-            expect(state.comments.size).toBe(2);
+            expect(state.comments.size).toEqual(2);
             expect(state.comments.get(comment1.id).id).toEqual(comment1.id);
             expect(state.comments.get(comment2.id).id).toEqual(comment2.id);
         });

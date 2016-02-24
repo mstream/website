@@ -36,17 +36,17 @@ describe("mapStateToProps function", () => {
             }
         };
         const props = mapStateToProps(state);
-        expect(props.articles.length).toBe(2);
-        expect(props.articles[0].id).toBe("1");
-        expect(props.articles[0].dateCreated).toBe(null);
-        expect(props.articles[0].title).toBe("article1");
-        expect(props.articles[0].summary).toBe("summary1");
-        expect(props.articles[0].content).toBe("content1");
-        expect(props.articles[1].id).toBe("2");
-        expect(props.articles[1].dateCreated).toBe(null);
-        expect(props.articles[1].title).toBe("article2");
-        expect(props.articles[1].summary).toBe("summary2");
-        expect(props.articles[1].content).toBe("content2");
+        expect(props.articles.length).toEqual(2);
+        expect(props.articles[0].id).toEqual("1");
+        expect(props.articles[0].dateCreated).toEqual(null);
+        expect(props.articles[0].title).toEqual("article1");
+        expect(props.articles[0].summary).toEqual("summary1");
+        expect(props.articles[0].content).toEqual("content1");
+        expect(props.articles[1].id).toEqual("2");
+        expect(props.articles[1].dateCreated).toEqual(null);
+        expect(props.articles[1].title).toEqual("article2");
+        expect(props.articles[1].summary).toEqual("summary2");
+        expect(props.articles[1].content).toEqual("content2");
     });
     it("should filter out article not belonging to enabled category", () => {
         const state = {
@@ -89,17 +89,17 @@ describe("mapStateToProps function", () => {
             }
         };
         const props = mapStateToProps(state);
-        expect(props.articles.length).toBe(2);
-        expect(props.articles[0].id).toBe("1");
-        expect(props.articles[0].dateCreated).toBe(null);
-        expect(props.articles[0].title).toBe("article1");
-        expect(props.articles[0].summary).toBe("summary1");
-        expect(props.articles[0].content).toBe("content1");
-        expect(props.articles[1].id).toBe("3");
-        expect(props.articles[1].dateCreated).toBe(null);
-        expect(props.articles[1].title).toBe("article3");
-        expect(props.articles[1].summary).toBe("summary3");
-        expect(props.articles[1].content).toBe("content3");
+        expect(props.articles.length).toEqual(2);
+        expect(props.articles[0].id).toEqual("1");
+        expect(props.articles[0].dateCreated).toEqual(null);
+        expect(props.articles[0].title).toEqual("article1");
+        expect(props.articles[0].summary).toEqual("summary1");
+        expect(props.articles[0].content).toEqual("content1");
+        expect(props.articles[1].id).toEqual("3");
+        expect(props.articles[1].dateCreated).toEqual(null);
+        expect(props.articles[1].title).toEqual("article3");
+        expect(props.articles[1].summary).toEqual("summary3");
+        expect(props.articles[1].content).toEqual("content3");
     });
 });
 

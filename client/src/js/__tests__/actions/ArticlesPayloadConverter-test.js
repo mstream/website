@@ -19,7 +19,7 @@ describe("ArticlesPayloadConverter", () => {
         const articlesPayload = [payloadArticle1, payloadArticle2];
         const convertedArticles = convertArticlesPayload(articlesPayload);
         it("it should covert articles dates properly", () => {
-            expect(convertedArticles.length).toBe(2);
+            expect(convertedArticles.length).toEqual(2);
             expect(convertedArticles[0].dateCreated).toEqual(new Date("2016-01-01T10:00:00.000Z"));
             expect(convertedArticles[1].dateCreated).toEqual(new Date("2016-01-02T10:00:00.000Z"));
         });

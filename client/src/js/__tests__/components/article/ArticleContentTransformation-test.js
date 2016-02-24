@@ -10,11 +10,11 @@ xxx
 xxx`;
         const html = cheerio.load(articleContentTransformation(articleContent));
         const headersHtml = html("h2");
-        expect(headersHtml.length).toBe(2);
-        expect(cheerio(headersHtml[0]).parent().attr("id")).toBe("header0");
-        expect(cheerio(headersHtml[0]).parent().attr("class")).toBe("section scrollspy");
-        expect(cheerio(headersHtml[1]).parent().attr("id")).toBe("header1");
-        expect(cheerio(headersHtml[1]).parent().attr("class")).toBe("section scrollspy");
+        expect(headersHtml.length).toEqual(2);
+        expect(cheerio(headersHtml[0]).parent().attr("id")).toEqual("header0");
+        expect(cheerio(headersHtml[0]).parent().attr("class")).toEqual("section scrollspy");
+        expect(cheerio(headersHtml[1]).parent().attr("id")).toEqual("header1");
+        expect(cheerio(headersHtml[1]).parent().attr("class")).toEqual("section scrollspy");
     });
 });
 

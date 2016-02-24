@@ -20,11 +20,11 @@ describe("mapStateToProps function", () => {
             }
         };
         const props = mapStateToProps(state);
-        expect(props.availableFilters.length).toBe(2);
-        expect(props.availableFilters[0].articlesNumber).toBe(2);
-        expect(props.availableFilters[1].name).toBe("category2");
-        expect(props.availableFilters[1].articlesNumber).toBe(4);
-        expect(props.enabledFilters.length).toBe(0);
+        expect(props.availableFilters.length).toEqual(2);
+        expect(props.availableFilters[0].articlesNumber).toEqual(2);
+        expect(props.availableFilters[1].name).toEqual("category2");
+        expect(props.availableFilters[1].articlesNumber).toEqual(4);
+        expect(props.enabledFilters.length).toEqual(0);
     });
 });
 

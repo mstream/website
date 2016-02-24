@@ -10,7 +10,7 @@ describe("Comments reducer", () => {
     describe("when comments state is initialized", () => {
         const initialState = comments(undefined, {});
         it("map should be empty", () => {
-            expect(initialState.size).toBe(0);
+            expect(initialState.size).toEqual(0);
         });
     });
 
@@ -40,10 +40,10 @@ describe("Comments reducer", () => {
             })
         );
         it("set should contain the created article", () => {
-            expect(state.size).toBe(1);
-            expect(state.get(articleId).size).toBe(2);
-            expect(state.get(articleId).get(0)).toBe(comment1.id);
-            expect(state.get(articleId).get(1)).toBe(comment2.id);
+            expect(state.size).toEqual(1);
+            expect(state.get(articleId).size).toEqual(2);
+            expect(state.get(articleId).get(0)).toEqual(comment1.id);
+            expect(state.get(articleId).get(1)).toEqual(comment2.id);
         });
     });
 });

@@ -9,9 +9,9 @@ xxx
 ## Header 2
 xxx`;
         const headers = articleContentToHeadersMapper(articleContent);
-        expect(headers.length).toBe(2);
-        expect(headers[0]).toBe("Header 1");
-        expect(headers[1]).toBe("Header 2");
+        expect(headers.length).toEqual(2);
+        expect(headers[0]).toEqual("Header 1");
+        expect(headers[1]).toEqual("Header 2");
     });
 });
 

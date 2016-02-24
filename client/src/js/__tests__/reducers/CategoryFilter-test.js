@@ -13,13 +13,13 @@ describe("CategoryFilter reducer", () => {
     describe("when category filter state is initialized", () => {
         const initialState = categoryFilter(undefined, {});
         it("there should be no available filters", () => {
-            expect(initialState.availableFilters.size).toBe(0);
+            expect(initialState.availableFilters.size).toEqual(0);
         });
         it("there should be no enabled filters", () => {
-            expect(initialState.enabledFilters.size).toBe(0);
+            expect(initialState.enabledFilters.size).toEqual(0);
         });
         it("articlesInCategoryCounter should be empty", () => {
-            expect(initialState.articlesInCategoryCounter.size).toBe(0);
+            expect(initialState.articlesInCategoryCounter.size).toEqual(0);
         });
     });
 
@@ -33,11 +33,11 @@ describe("CategoryFilter reducer", () => {
         };
         const state = categoryFilter(initialState, actionCreator.addCategoryTag(category));
         it("it should be added to the available filters set", () => {
-            expect(state.availableFilters.size).toBe(1);
+            expect(state.availableFilters.size).toEqual(1);
             expect(state.availableFilters.has(categoryName)).toBeTruthy();
         });
         it("its articles counter should be 1", () => {
-            expect(state.articlesInCategoryCounter.get(categoryName)).toBe(1);
+            expect(state.articlesInCategoryCounter.get(categoryName)).toEqual(1);
         });
     });
 
@@ -55,15 +55,15 @@ describe("CategoryFilter reducer", () => {
         };
         const state = categoryFilter(initialState, actionCreator.addCategoryTag(category2));
         it("the available filters set should contain both of them", () => {
-            expect(state.availableFilters.size).toBe(2);
+            expect(state.availableFilters.size).toEqual(2);
             expect(state.availableFilters.has(categoryName1)).toBeTruthy();
             expect(state.availableFilters.has(categoryName2)).toBeTruthy();
         });
         it("the old category articles counter should be 1", () => {
-            expect(state.articlesInCategoryCounter.get(categoryName1)).toBe(1);
+            expect(state.articlesInCategoryCounter.get(categoryName1)).toEqual(1);
         });
         it("the added category articles counter should be 1", () => {
-            expect(state.articlesInCategoryCounter.get(categoryName2)).toBe(1);
+            expect(state.articlesInCategoryCounter.get(categoryName2)).toEqual(1);
         });
     });
 
@@ -79,11 +79,11 @@ describe("CategoryFilter reducer", () => {
         };
         const state = categoryFilter(initialState, actionCreator.addCategoryTag(category));
         it("the available filters set should not change", () => {
-            expect(state.availableFilters.size).toBe(1);
+            expect(state.availableFilters.size).toEqual(1);
             expect(state.availableFilters.has(categoryName)).toBeTruthy();
         });
         it("the old category articles counter should be 2", () => {
-            expect(state.articlesInCategoryCounter.get(categoryName)).toBe(2);
+            expect(state.articlesInCategoryCounter.get(categoryName)).toEqual(2);
         });
     });
 
@@ -120,15 +120,15 @@ describe("CategoryFilter reducer", () => {
         const receivedArticles = [article1, article2, article3];
         const state = categoryFilter(initialState, createAction(Actions.RECEIVE_ARTICLES)(receivedArticles));
         it("there should be 3 available categories", () => {
-            expect(state.availableFilters.size).toBe(3);
+            expect(state.availableFilters.size).toEqual(3);
             expect(state.availableFilters.has("categoryA")).toBeTruthy();
             expect(state.availableFilters.has("categoryB")).toBeTruthy();
             expect(state.availableFilters.has("categoryC")).toBeTruthy();
         });
         it("categories counters should be proper", () => {
-            expect(state.articlesInCategoryCounter.get("categoryA")).toBe(2);
-            expect(state.articlesInCategoryCounter.get("categoryB")).toBe(2);
-            expect(state.articlesInCategoryCounter.get("categoryC")).toBe(1);
+            expect(state.articlesInCategoryCounter.get("categoryA")).toEqual(2);
+            expect(state.articlesInCategoryCounter.get("categoryB")).toEqual(2);
+            expect(state.articlesInCategoryCounter.get("categoryC")).toEqual(1);
         });
     });
 
@@ -144,11 +144,11 @@ describe("CategoryFilter reducer", () => {
         };
         const state = categoryFilter(initialState, actionCreator.enableCategoryFilter(category));
         it("the enabled filter should be removed from the available filters set", () => {
-            expect(state.availableFilters.size).toBe(0);
+            expect(state.availableFilters.size).toEqual(0);
             expect(state.availableFilters.has(categoryName)).toBeFalsy();
         });
         it("the enabled filter should be added to the enabled filters set", () => {
-            expect(state.enabledFilters.size).toBe(1);
+            expect(state.enabledFilters.size).toEqual(1);
             expect(state.enabledFilters.has(categoryName)).toBeTruthy();
         });
     });
@@ -165,11 +165,11 @@ describe("CategoryFilter reducer", () => {
         };
         const state = categoryFilter(initialState, actionCreator.disableCategoryFilter(category));
         it("the disabled filter should be removed from the enabled filters set", () => {
-            expect(state.enabledFilters.size).toBe(0);
+            expect(state.enabledFilters.size).toEqual(0);
             expect(state.enabledFilters.has(categoryName)).toBeFalsy();
         });
         it("the disabled filter should be added to the available filters set", () => {
-            expect(state.availableFilters.size).toBe(1);
+            expect(state.availableFilters.size).toEqual(1);
             expect(state.availableFilters.has(categoryName)).toBeTruthy();
         });
     });

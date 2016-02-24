@@ -13,7 +13,7 @@ describe("Articles reducer", () => {
     describe("when articles state is initialized", () => {
         const initialState = articles(undefined, {});
         it("set should be empty", () => {
-            expect(initialState.size).toBe(0);
+            expect(initialState.size).toEqual(0);
         });
     });
     describe("when a one articles is added", () => {
@@ -30,7 +30,7 @@ describe("Articles reducer", () => {
             actionCreator.addArticle(article)
         );
         it("set should contain the created article", () => {
-            expect(state.size).toBe(1);
+            expect(state.size).toEqual(1);
             expect(state.has(article.id)).toBeTruthy();
         });
     });
@@ -55,7 +55,7 @@ describe("Articles reducer", () => {
             actionCreator.addArticle(article2)
         );
         it("set should contain both articles", () => {
-            expect(state.size).toBe(2);
+            expect(state.size).toEqual(2);
             expect(state.has(article1.id)).toBeTruthy();
             expect(state.has(article2.id)).toBeTruthy();
         });
@@ -84,7 +84,7 @@ describe("Articles reducer", () => {
             createAction(Actions.RECEIVE_ARTICLES)(receivedArticles)
         );
         it("articles should be added to the articles list", () => {
-            expect(state.size).toBe(2);
+            expect(state.size).toEqual(2);
             expect(state.has(article1.id)).toBeTruthy();
             expect(state.has(article2.id)).toBeTruthy();
         });
@@ -113,7 +113,7 @@ describe("Articles reducer", () => {
             createAction(Actions.RECEIVE_ARTICLES)(new Error())
         );
         it("article list should remain the same", () => {
-            expect(state.size).toBe(2);
+            expect(state.size).toEqual(2);
             expect(state.has(article1.id)).toBeTruthy();
             expect(state.has(article2.id)).toBeTruthy();
         });
