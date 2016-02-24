@@ -21,6 +21,9 @@ const HeadersLists = ({isLoading, articleContent}) => {
     return (
         <ul className="section table-of-contents">
             {headerItems}
+            <li>
+                <a href="#comments">Comments</a>
+            </li>
         </ul>
     );
 };

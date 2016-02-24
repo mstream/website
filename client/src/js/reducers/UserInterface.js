@@ -8,7 +8,8 @@ const initialState = {
         isFetching: false
     },
     articleView: {
-        isFetching: false
+        isFetchingContent: false,
+        isFetchingComments: false
     }
 };
 
@@ -53,7 +54,7 @@ const handlers = {
                 articleView: Object.assign(
                     {},
                     state.articleView,
-                    {isFetching: true}
+                    {isFetchingContent: true}
                 )
             })
     },
@@ -65,7 +66,7 @@ const handlers = {
                 articleView: Object.assign(
                     {},
                     state.articleView,
-                    {isFetching: false})
+                    {isFetchingContent: false})
             }),
         throw: (state, action) => Object.assign(
             {},
@@ -74,7 +75,39 @@ const handlers = {
                 articleView: Object.assign(
                     {},
                     state.articleView,
-                    {isFetching: false})
+                    {isFetchingContent: false})
+            })
+    },
+    [Actions.REQUEST_ARTICLE_COMMENTS]: {
+        next: (state, action) => Object.assign(
+            {},
+            state,
+            {
+                articleView: Object.assign(
+                    {},
+                    state.articleView,
+                    {isFetchingComments: true}
+                )
+            })
+    },
+    [Actions.RECEIVE_ARTICLE_COMMENTS]: {
+        next: (state, action) =>  Object.assign(
+            {},
+            state,
+            {
+                articleView: Object.assign(
+                    {},
+                    state.articleView,
+                    {isFetchingComments: false})
+            }),
+        throw: (state, action) => Object.assign(
+            {},
+            state,
+            {
+                articleView: Object.assign(
+                    {},
+                    state.articleView,
+                    {isFetchingComments: false})
             })
     }
 };

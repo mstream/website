@@ -101,4 +101,37 @@ describe("Entities reducer", () => {
             expect(state.articles.get(articleWithoutContent.id).content).toEqual(articleWithContent.content);
         });
     });
+    describe("when article comments are received", () => {
+        const articleId = "1";
+        const comment1 = {
+            id: "1",
+            articleId: "1",
+            content: "content1",
+            author: "author1",
+            dateCreated: new Date(0)
+        };
+        const comment2 = {
+            id: "2",
+            articleId: "1",
+            title: "title1",
+            author: "author1",
+            dateCreated: new Date(0)
+        };
+        const receivedComments = [comment1, comment2];
+        const initialState = {
+            comments: Immutable.Map()
+        };
+        const state = entities(
+            initialState,
+            createAction(Actions.RECEIVE_ARTICLE_COMMENTS)({
+                articleId,
+                comments: receivedComments
+            })
+        );
+        it("comments should be added to the comments list", () => {
+            expect(state.comments.size).toBe(2);
+            expect(state.comments.get(comment1.id).id).toEqual(comment1.id);
+            expect(state.comments.get(comment2.id).id).toEqual(comment2.id);
+        });
+    });
 });

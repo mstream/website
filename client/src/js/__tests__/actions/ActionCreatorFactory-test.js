@@ -207,24 +207,6 @@ describe("Action Creators", () => {
     });
     describe("when fetching article content failed", () => {
         it("request and received action with an error should be dispatched", done => {
-            const article1 = {
-                id: "1",
-                title: "title1",
-                summary: "summary1",
-                content: "content1",
-                dateCreated: new Date(0)
-            };
-            const article2 = {
-                id: "2",
-                title: "title2",
-                summary: "summary2",
-                content: "content2",
-                dateCreated: new Date(0)
-            };
-            const receivedArticles = [
-                article1,
-                article2
-            ];
             const server = sinon.fakeServer.create();
             server.respondWith("GET", `${generatedId}/api/articles/1`, [
                 500,
@@ -238,11 +220,72 @@ describe("Action Creators", () => {
                 },
                 {
                     type: Actions.RECEIVE_ARTICLES,
-                    payload: receivedArticles
+                    payload: undefined
                 }
             ];
             const store = mockStore(null, expectedActions, done);
             store.dispatch(actionCreator.fetchArticles())
+        })
+    });
+    describe("when fetching article comments requested", () => {
+        it("request and received action with a response should be dispatched", done => {
+            const articleId = "1";
+            const comment1 = {
+                id: "1",
+                articleId: "1",
+                content: "content1",
+                author: "author1",
+                dateCreated: new Date(0)
+            };
+            const comment2 = {
+                id: "2",
+                articleId: "1",
+                title: "title1",
+                author: "author1",
+                dateCreated: new Date(0)
+            };
+            const receivedComments = [comment1, comment2];
+            const server = sinon.fakeServer.create();
+            server.respondWith("GET", `${generatedId}/api/articles/${articleId}/comments`, [
+                200,
+                {"Content-Type": "application/json"},
+                JSON.stringify(receivedComments)
+            ]);
+            const expectedActions = [
+                {
+                    type: Actions.REQUEST_ARTICLE_COMMENTS,
+                    payload: {articleId}
+                },
+                {
+                    type: Actions.RECEIVE_ARTICLE_COMMENTS,
+                    payload: receivedComments
+                }
+            ];
+            const store = mockStore(null, expectedActions, done);
+            store.dispatch(actionCreator.fetchArticleComments(articleId));
+        })
+    });
+    describe("when fetching article comments failed", () => {
+        it("request and received action with an error should be dispatched", done => {
+            const articleId = "1";
+            const server = sinon.fakeServer.create();
+            server.respondWith("GET", `${generatedId}/api/articles/${articleId}/comments`, [
+                500,
+                {},
+                ""
+            ]);
+            const expectedActions = [
+                {
+                    type: Actions.REQUEST_ARTICLE_COMMENTS,
+                    payload: {articleId}
+                },
+                {
+                    type: Actions.RECEIVE_ARTICLE_COMMENTS,
+                    payload: undefined
+                }
+            ];
+            const store = mockStore(null, expectedActions, done);
+            store.dispatch(actionCreator.fetchArticleComments(articleId))
         })
     });
 });

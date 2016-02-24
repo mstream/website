@@ -48,6 +48,16 @@ const handlers = {
             state,
             {articles}
         );
+    },
+    [Actions.RECEIVE_ARTICLE_COMMENTS]: (state, action) => {
+        const comments = Immutable.Map(
+            action.payload.comments.map(comment => [comment.id, comment])
+        );
+        return Object.assign(
+            {},
+            state,
+            {comments}
+        );
     }
 };
 

@@ -14,7 +14,7 @@ const ArticleMapperBuilder = state => id => state.entities.articles.get(id);
 
 const mapStateToProps = state => {
     const articleMapper = ArticleMapperBuilder(state);
-    let articles = state.articles.items.toArray().map(articleMapper);
+    let articles = state.articles.map(articleMapper).toArray();
     const enabledFilters = state.categoryFilter.enabledFilters;
     if (!enabledFilters.isEmpty()) {
         const articleFilter = ArticleFilterBuilder(enabledFilters);
@@ -27,7 +27,10 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch => ({
-    onReadMoreClick: articleId => dispatch(actionCreator.fetchArticleContent(articleId))
+    onReadMoreClick: articleId => {
+        dispatch(actionCreator.fetchArticleContent(articleId));
+        dispatch(actionCreator.fetchArticleComments(articleId));
+    }
 });
 
 export {mapStateToProps, mapDispatchToProps};

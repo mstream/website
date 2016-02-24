@@ -1,5 +1,4 @@
 import marked from "marked";
-import $ from "jquery";
 import {articleContentToHeadersMapper} from "./../../../components/headersList/ArticleContentToHeadersMapper";
 
 

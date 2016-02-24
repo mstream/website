@@ -11,8 +11,8 @@ const FilterMapperBuilder = (state) =>
 const mapStateToProps = (state) => {
     const filterMapper = FilterMapperBuilder(state);
     return {
-        availableFilters: state.categoryFilter.availableFilters.toArray().map(filterMapper),
-        enabledFilters: state.categoryFilter.enabledFilters.toArray().map(filterMapper)
+        availableFilters: state.categoryFilter.availableFilters.map(filterMapper).toArray(),
+        enabledFilters: state.categoryFilter.enabledFilters.map(filterMapper).toArray()
     };
 };
 

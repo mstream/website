@@ -3,9 +3,9 @@ import ArticlesList from "../../components/articlesList/ArticlesList.jsx";
 import * as Mappers from "./Mappers";
 
 
-const FilterableArticlesList = connect(
+const ArticlesListContainer = connect(
     Mappers.mapStateToProps,
     Mappers.mapDispatchToProps
 )(ArticlesList);
 
-export default FilterableArticlesList;
+export default ArticlesListContainer;

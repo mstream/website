@@ -3,12 +3,15 @@ import { createAction } from "redux-actions";
 import Actions from "./Actions";
 import {convertArticlePayload} from "./ArticlePayloadConverter";
 import {convertArticlesPayload} from "./ArticlesPayloadConverter";
+import {convertCommentsPayload} from "./CommentsPayloadConverter";
 
 
 const requestArticles = createAction(Actions.REQUEST_ARTICLES);
 const receiveArticles = createAction(Actions.RECEIVE_ARTICLES);
 const requestArticleContent = createAction(Actions.REQUEST_ARTICLE_CONTENT);
 const receiveArticleContent = createAction(Actions.RECEIVE_ARTICLE_CONTENT);
+const requestArticleComments = createAction(Actions.REQUEST_ARTICLE_COMMENTS);
+const receiveArticleComments = createAction(Actions.RECEIVE_ARTICLE_COMMENTS);
 
 
 const ActionCreatorFactory = class {
@@ -40,6 +43,20 @@ const ActionCreatorFactory = class {
                 .then(json => convertArticlePayload(json))
                 .then(articleWithContent => dispatch(receiveArticleContent(articleWithContent)))
                 .catch(error => dispatch(receiveArticleContent(error)))
+        };
+        this.fetchArticleComments = articleId => dispatch => {
+            dispatch(requestArticleComments({articleId}));
+            return fetch(buildUrl(`/api/articles/${articleId}/comments`))
+                .then(response => response.json())
+                .then(json => convertCommentsPayload(json))
+                .then(comments => dispatch(receiveArticleComments({
+                    articleId,
+                    comments
+                })))
+                .catch(error => dispatch(receiveArticleComments({
+                    articleId,
+                    error
+                })))
         };
     }
 };

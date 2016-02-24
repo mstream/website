@@ -71,10 +71,25 @@ describe("UserInterface reducer", () => {
             expect(state.articlesList.isFetching).toBeFalsy();
         });
     });
+    describe("when article content is requested", () => {
+        const initialState = {
+            articleView: {
+                isFetchingContent: false
+            }
+        };
+        const state = userInterface(
+            initialState,
+            createAction(Actions.REQUEST_ARTICLE_CONTENT)()
+        );
+        it("isFetchingContent property should be set to true", () => {
+            expect(state.articleView.isFetchingContent).toBeTruthy();
+        });
+    });
     describe("when article content is received", () => {
         const initialState = {
             articleView: {
-                isFetching: true
+                isFetchingContent: true,
+                isFetchingComments: true
             }
         };
         const article = {
@@ -88,22 +103,103 @@ describe("UserInterface reducer", () => {
             initialState,
             createAction(Actions.RECEIVE_ARTICLE_CONTENT)(article)
         );
-        it("ui isFetching property should be set to false", () => {
-            expect(state.articleView.isFetching).toBeFalsy();
+        it("isFetchingContent property should be set to false", () => {
+            expect(state.articleView.isFetchingContent).toBeFalsy();
+        });
+        it("isFetchingComment property should be still set to true", () => {
+            expect(state.articleView.isFetchingComments).toBeTruthy();
         });
     });
     describe("when article content receive failed", () => {
         const initialState = {
-            articlesList: {
-                isFetching: true
+            articleView: {
+                isFetchingContent: true,
+                isFetchingComments: true
             }
         };
         const state = userInterface(
             initialState,
             createAction(Actions.RECEIVE_ARTICLE_CONTENT)(new Error())
         );
-        it("ui isFetching property should be set to false", () => {
-            expect(state.articleView.isFetching).toBeFalsy();
+        it("isFetchingContent property should be set to false", () => {
+            expect(state.articleView.isFetchingContent).toBeFalsy();
+        });
+        it("isFetchingComment property should be still set to true", () => {
+            expect(state.articleView.isFetchingComments).toBeTruthy();
+        });
+    });
+    describe("when article comments are requested", () => {
+        const articleId = "1";
+        const initialState = {
+            articleView: {
+                isFetchingComments: false
+            }
+        };
+        const state = userInterface(
+            initialState,
+            createAction(Actions.REQUEST_ARTICLE_COMMENTS)(articleId)
+        );
+        it("isFetchingContent property should be set to true", () => {
+            expect(state.articleView.isFetchingComments).toBeTruthy();
+        });
+    });
+    describe("when article comments are received", () => {
+        const articleId = "1";
+        const initialState = {
+            articleView: {
+                isFetchingContent: true,
+                isFetchingComments: true
+            }
+        };
+        const comment1 = {
+            id: "1",
+            articleId: "1",
+            content: "content1",
+            author: "author1",
+            dateCreated: new Date(0)
+        };
+        const comment2 = {
+            id: "2",
+            articleId: "1",
+            title: "title1",
+            author: "author1",
+            dateCreated: new Date(0)
+        };
+        const receivedComments = [comment1, comment2];
+        const state = userInterface(
+            initialState,
+            createAction(Actions.RECEIVE_ARTICLE_COMMENTS)({
+                articleId,
+                comments: receivedComments
+            })
+        );
+        it("isFetchingContent property should be set to false", () => {
+            expect(state.articleView.isFetchingComments).toBeFalsy();
+        });
+        it("isFetchingComment property should be still set to true", () => {
+            expect(state.articleView.isFetchingContent).toBeTruthy();
+        });
+    });
+    describe("when article comments receive failed", () => {
+        const articleId = "1";
+        const initialState = {
+            articleView: {
+                isFetchingContent: true,
+                isFetchingComments: true
+            }
+        };
+        const state = userInterface(
+            initialState,
+            createAction(Actions.RECEIVE_ARTICLE_COMMENTS)({
+                articleId,
+                error: new Error()
+            })
+        );
+        it("isFetchingContent property should be set to false", () => {
+            expect(state.articleView.isFetchingComments).toBeFalsy();
+        });
+        it("isFetchingComment property should be still set to true", () => {
+            expect(state.articleView.isFetchingContent).toBeTruthy();
         });
     });
 });
