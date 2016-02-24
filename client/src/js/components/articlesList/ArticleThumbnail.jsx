@@ -8,7 +8,7 @@ const ArticleThumbnail = ({id, title, summary, dateCreated, categories, onReadMo
         <li>
             <article className="card large hoverable main-foreground">
                 <figure className="card-image">
-                    <img src="http://loremflickr.com/500/100"/>
+                    <img src="http://placeimg.com/600/100/tech/grayscale"/>
                     <span className="card-title">{title}</span>
                 </figure>
                 <div className="card-content">
@@ -16,10 +16,7 @@ const ArticleThumbnail = ({id, title, summary, dateCreated, categories, onReadMo
                 </div>
                 <footer className="card-action">
                     <Link to={url}
-                          onClick={e => {
-                                onReadMoreClick(id);
-                          }
-                      }>
+                          onClick={() =>  onReadMoreClick(id)}>
                         Read more...
                     </Link>
                 </footer>
