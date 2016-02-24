@@ -10,7 +10,9 @@ const CommentsListItem = ({
     }) => {
     return (
         <li>
-            <div className="collection-item">
+            <div className="collection-item avatar">
+                <i className="material-icons circle">person</i>
+                <span className="title">{author}</span>
                 <p>{content}</p>
             </div>
         </li>
