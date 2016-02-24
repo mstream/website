@@ -1,15 +1,14 @@
 import actionCreator from "../../actions/ActionCreator";
+import IdToEntityMapperBuilder from "../IdToEntityMapperBuilder";
 import * as ActionCreators from "../../actions/ActionCreatorFactory";
 
 
-const CommentMapperBuilder = state => id => state.entities.comments.get(id);
-
 const mapStateToProps = (state, ownProps) => {
-    const commentMapper = CommentMapperBuilder(state);
+    const idToComment = IdToEntityMapperBuilder(state, "comments");
     const isLoading = state.userInterface.articleView.isFetchingComments;
     let comments = [];
     if (!isLoading) {
-        comments = state.comments.get(ownProps.articleId).map(commentMapper).toArray();
+        comments = state.comments.get(ownProps.articleId).map(idToComment).toArray();
     }
     return {
         isLoading: state.userInterface.articleView.isFetchingComments,
@@ -17,8 +16,7 @@ const mapStateToProps = (state, ownProps) => {
     };
 };
 
-const mapDispatchToProps = dispatch => ({
-});
+const mapDispatchToProps = dispatch => ({});
 
 
 export {mapStateToProps, mapDispatchToProps};

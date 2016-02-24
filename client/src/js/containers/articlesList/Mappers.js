@@ -1,5 +1,7 @@
 import actionCreator from "../../actions/ActionCreator";
+import IdToEntityMapperBuilder from "../IdToEntityMapperBuilder";
 import * as ActionCreators from "../../actions/ActionCreatorFactory";
+
 
 const ArticleFilterBuilder = enabledFilters => article => {
     for (let filter of enabledFilters) {
@@ -10,11 +12,9 @@ const ArticleFilterBuilder = enabledFilters => article => {
     return false;
 };
 
-const ArticleMapperBuilder = state => id => state.entities.articles.get(id);
-
 const mapStateToProps = state => {
-    const articleMapper = ArticleMapperBuilder(state);
-    let articles = state.articles.map(articleMapper).toArray();
+    const idToArticle = IdToEntityMapperBuilder(state, "articles");
+    let articles = state.articles.map(idToArticle).toArray();
     const enabledFilters = state.categoryFilter.enabledFilters;
     if (!enabledFilters.isEmpty()) {
         const articleFilter = ArticleFilterBuilder(enabledFilters);
@@ -32,5 +32,6 @@ const mapDispatchToProps = dispatch => ({
         dispatch(actionCreator.fetchArticleComments(articleId));
     }
 });
+
 
 export {mapStateToProps, mapDispatchToProps};
