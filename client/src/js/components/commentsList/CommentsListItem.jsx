@@ -7,17 +7,16 @@ const CommentsListItem = ({
     content,
     author,
     dateCreated
-    }) => {
-    return (
-        <li>
-            <div className="collection-item avatar">
-                <i className="material-icons circle">person</i>
-                <span className="title">{author}</span>
-                <p>{content}</p>
-            </div>
-        </li>
-    );
-};
+    }) => (
+    <li>
+        <div className="collection-item avatar">
+            <i className="material-icons circle">person</i>
+            <span className="title"><em>{author}</em> <small>{dateCreated}</small></span>
+            <p>{content}</p>
+        </div>
+    </li>
+);
+
 
 CommentsListItem.propTypes = {
     id: PropTypes.string.isRequired,

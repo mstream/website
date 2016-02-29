@@ -1,6 +1,5 @@
 import React from "react";
 import { Link } from "react-router";
-import {articleContentTransformation} from "./ArticleContentTransformation";
 import CommentsListContainer from "../../containers/commentsList/CommentsListContainer";
 
 
@@ -19,7 +18,6 @@ const Article = class extends React.Component {
             );
         }
         const {id, title, dateCreated, content} = this.props.article;
-        const rawContent = {__html: articleContentTransformation(content)};
         return (
             <div>
                 <article className="container-fluid">

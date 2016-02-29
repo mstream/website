@@ -1,8 +1,9 @@
 import Immutable from "immutable";
-import {mapStateToProps, mapDispatchToProps} from "../../../containers/commentsList/Mappers";
+import {mapStateToProps} from "../../../containers/commentsList/Mappers";
 
 
 describe("mapStateToProps function", () => {
+
     it("should map state to props properly", () => {
         const articleId = "1";
         const otherId = "2";
@@ -49,11 +50,11 @@ describe("mapStateToProps function", () => {
         );
         expect(props.comments.length).toEqual(2);
         expect(props.comments[0].id).toEqual("1");
-        expect(props.comments[0].dateCreated).toEqual(new Date(0));
+        expect(props.comments[0].dateCreated).toBeDefined();
         expect(props.comments[0].author).toEqual("author1");
         expect(props.comments[0].content).toEqual("content1");
         expect(props.comments[1].id).toEqual("2");
-        expect(props.comments[1].dateCreated).toEqual(new Date(0));
+        expect(props.comments[1].dateCreated).toBeDefined();
         expect(props.comments[1].author).toEqual("author2");
         expect(props.comments[1].content).toEqual("content2");
     });
