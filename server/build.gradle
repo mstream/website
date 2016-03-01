@@ -1,0 +1,53 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath "io.ratpack:ratpack-gradle:1.2.0"
+    }
+}
+
+apply plugin: "io.ratpack.ratpack-java"
+apply plugin: "idea"
+
+
+repositories {
+    jcenter()
+}
+
+configurations {
+    provided
+    provided.extendsFrom compile
+}
+
+sourceSets {
+    main {
+        compileClasspath += [configurations.provided]
+    }
+}
+
+dependencies {
+    provided "org.projectlombok:lombok:1.16.6"
+    runtime "org.slf4j:slf4j-simple:1.7.12"
+    compile 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.7.2'
+}
+
+mainClassName = "io.mstream.website.Main"
+
+idea {
+    module {
+        scopes.PROVIDED.plus += [configurations.provided]
+    }
+}
+
+run {
+    jvmArgs "-Dratpack.port=8080"
+    systemProperty "ratpack.reloadable", "true"
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.11'
+}
+
+
+
