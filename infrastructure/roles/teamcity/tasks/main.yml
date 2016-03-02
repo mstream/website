@@ -1,0 +1,52 @@
+---
+- name: create a functional user
+  become: yes
+  user:
+    name: teamcity
+    password: teamcity
+    createhome: no
+    state: present
+
+- name: download a distribution archive
+  become: yes
+  get_url:
+    url: https://download.jetbrains.com/teamcity/TeamCity-9.1.6.tar.gz
+    dest: /tmp
+
+- name: unpack a distribution archive
+  become: yes
+  unarchive:
+    src: /tmp/TeamCity-9.1.6.tar.gz
+    dest: /tmp
+    copy: no
+
+- name: create a home directory
+  become: yes
+  command: cp -r /tmp/TeamCity /opt/teamcity 
+  args:
+    creates: /opt/teamcity
+
+- name: sets permissions on a home directory
+  become: yes
+  file:
+    path: /opt/teamcity
+    owner: teamcity
+    group: teamcity
+    recurse: yes
+    state: directory
+
+- name: clean up
+  become: yes
+  file:
+    path: "{{ item }}"
+    state: absent
+  with_items:
+    - /tmp/TeamCity
+    - /tmp/TeamCity-9.1.6.tar.gz
+
+
+
+
+
+
+
