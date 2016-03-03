@@ -1,0 +1,14 @@
+[Unit]
+Description=JetBrains TeamCity
+Requires=network.target
+After=syslog.target network.target
+
+[Service]
+Type=forking
+EnvironmentFile=/etc/sysconfig/teamcity
+ExecStart=/srv/teamcity/default/bin/teamcity-server.sh start
+ExecStop=/srv/teamcity/default/bin/teamcity-server.sh stop
+User={{ user_name }}
+
+[Install]
+WantedBy=multi-user.target

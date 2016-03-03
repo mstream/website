@@ -2,7 +2,8 @@
 - name: install the openjdk 
   become: yes
   yum:
-    name: java-1.8.0-openjdk
+    name: java-1.8.0-openjdk-devel
     state: present
+
 
 

@@ -1,39 +1,57 @@
 ---
+- name: create a systemctl service config
+  become: yes
+  template:
+    src: teamcity.j2
+    dest: /etc/sysconfig/teamcity
+    force: yes
+
+- name: create a systemctl service script
+  become: yes
+  template:
+    src: teamcity.service.j2
+    dest: /lib/systemd/system/teamcity.service
+    force: yes
+
 - name: create a functional user
   become: yes
   user:
-    name: teamcity
-    password: teamcity
-    createhome: no
+    name: "{{ user_name }}"
+    password: "{{ user_name }}"
+    createhome: yes
+    home: "{{ home_dir }}"
     state: present
 
 - name: download a distribution archive
   become: yes
+  become_user: "{{ user_name }}"
   get_url:
-    url: https://download.jetbrains.com/teamcity/TeamCity-9.1.6.tar.gz
-    dest: /tmp
+    url: "{{ download_url }}"
+    dest: "{{ home_dir }}"
 
 - name: unpack a distribution archive
   become: yes
+  become_user: "{{ user_name }}"
   unarchive:
-    src: /tmp/TeamCity-9.1.6.tar.gz
-    dest: /tmp
+    src: "{{ home_dir }}/{{ dist_archive }}"
+    dest: "{{ home_dir }}"
     copy: no
+    creates: "{{ dist_name }}"
 
-- name: create a home directory
+- name: rename distribution
   become: yes
-  command: cp -r /tmp/TeamCity /opt/teamcity 
+  become_user: "{{ user_name }}"
+  command: mv {{ home_dir }}/{{ dist_name }} {{ home_dir }}/{{ dist_version }}
   args:
-    creates: /opt/teamcity
+    creates: "{{ home_dir }}/{{ dist_version }}"
 
-- name: sets permissions on a home directory
+- name: create a distribution symlink
   become: yes
-  file:
-    path: /opt/teamcity
-    owner: teamcity
-    group: teamcity
-    recurse: yes
-    state: directory
+  become_user: "{{ user_name }}"
+  file: 
+    path: "{{ home_dir }}/default"
+    src: "{{ home_dir }}/{{ dist_version }}"
+    state: link
 
 - name: clean up
   become: yes
@@ -41,12 +59,10 @@
     path: "{{ item }}"
     state: absent
   with_items:
-    - /tmp/TeamCity
-    - /tmp/TeamCity-9.1.6.tar.gz
+    - "{{ home_dir }}/{{ dist_archive }}"
 
-
-
-
-
-
-
+- name: run a service
+  become: yes
+  service:
+    name: teamcity
+    state: running

@@ -1,0 +1,14 @@
+[Unit]
+Description=TeamCity Build Agent
+Requires=network.target
+After=network.target
+
+[Service]
+Type=forking
+EnvironmentFile=/etc/sysconfig/teamcity-agent
+ExecStart=/srv/tcagent/default/bin/agent.sh start
+ExecStop=/srv/tcagent/default/bin/agent.sh stop
+User={{ user_name }}
+
+[Install]
+WantedBy=multi-user.target

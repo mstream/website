@@ -1,0 +1,43 @@
+---
+- name: create a systemctl service config
+  become: yes
+  template:
+    src: teamcity-agent.j2
+    dest: /etc/sysconfig/teamcity-agent
+    force: yes
+
+- name: create a systemctl service script
+  become: yes
+  template:
+    src: teamcity-agent.service.j2
+    dest: /lib/systemd/system/teamcity-agent.service
+    force: yes
+
+- name: create a functional user
+  become: yes
+  user:
+    name: "{{ user_name }}"
+    password: "{{ user_name }}"
+    createhome: yes
+    home: "{{ home_dir }}"
+    state: present
+
+- name: copy the build agent distribution
+  become: yes
+  command: cp -r /srv/teamcity/default/buildAgent {{ home_dir }}/default
+  args:
+    creates: "{{ home_dir }}/default"
+
+- name: set privilages to the build agent distribution
+  become: yes
+  file:
+    path: "{{ home_dir }}/default"
+    owner: "{{ user_name }}"
+    group: "{{ user_name }}"
+    recurse: yes
+
+- name: run a service
+  become: yes
+  service:
+    name: teamcity-agent
+    state: running

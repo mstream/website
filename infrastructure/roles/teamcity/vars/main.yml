@@ -1,0 +1,6 @@
+user_name: teamcity
+home_dir: /srv/{{ user_name }}
+dist_version: 9.1.6
+dist_name: TeamCity
+dist_archive: "{{ dist_name }}-{{ dist_version }}.tar.gz"
+download_url: https://download.jetbrains.com/teamcity/{{ dist_archive }}

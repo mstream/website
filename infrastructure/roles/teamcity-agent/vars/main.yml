@@ -1,0 +1,2 @@
+user_name: tcagent
+home_dir: /srv/{{ user_name }}
