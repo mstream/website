@@ -1,0 +1,36 @@
+---
+- set_fact:
+    seed_nodes: "{{ [play_hosts[0]] if play_hosts|length == 1 else [play_hosts[0], play_hosts[1]] }}"
+
+- name: add the datastax repository config
+  become: yes
+  template:
+    src: datastax.repo.j2
+    dest: /etc/yum.repos.d/datastax.repo
+    force: yes
+
+- name: install cassandra
+  become: yes
+  yum:
+    name: dsc{{ dist_version }}
+    state: present
+
+- name: install cassandra tools
+  become: yes
+  yum:
+    name: cassandra{{ dist_version }}-tools
+    state: present
+
+- name: add the cassandra config
+  become: yes
+  template:
+    src: cassandra.yaml.j2
+    dest: /etc/cassandra/conf/cassandra.yaml
+    force: yes
+
+- name: start cassandra
+  become: yes
+  service:
+    name: cassandra
+    enabled: yes
+    state: restarted
