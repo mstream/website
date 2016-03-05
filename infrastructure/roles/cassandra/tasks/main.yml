@@ -43,12 +43,14 @@
     state: started
 
 - name: create a temporary scripts directory
+  run_once: yes
   become: yes
   file:
     path: "{{ tmp_scripts_dir }}"
     state: directory
 
 - name: copy create keyspaces script
+  run_once: yes
   become: yes
   copy:
     src: "{{ role_path }}/files/{{ create_keyspaces_script }}"
@@ -56,9 +58,23 @@
     force: yes
 
 - name: run create keyspaces script
+  run_once: yes
   command: cqlsh -f {{ tmp_scripts_dir }}/{{ create_keyspaces_script }}
 
+- name: copy create tables script
+  run_once: yes
+  become: yes
+  copy:
+    src: "{{ role_path }}/files/{{ create_tables_script }}"
+    dest: "{{ tmp_scripts_dir }}/{{ create_tables_script }}"
+    force: yes
+
+- name: run create tables script
+  run_once: yes
+  command: cqlsh -f {{ tmp_scripts_dir }}/{{ create_tables_script }}
+
 - name: remove the temporary scripts directory
+  run_once: yes
   become: yes
   file:
     path: "{{ tmp_scripts_dir }}"
