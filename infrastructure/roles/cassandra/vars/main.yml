@@ -1,2 +1,4 @@
 dist_version: 22
-
+native_transport_port: 9042
+tmp_scripts_dir: /tmp/cql
+create_keyspaces_script: create-keyspaces.cql

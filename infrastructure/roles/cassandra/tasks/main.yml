@@ -1,6 +1,7 @@
 ---
 - set_fact:
     seed_nodes: "{{ [play_hosts[0]] if play_hosts|length == 1 else [play_hosts[0], play_hosts[1]] }}"
+    create_keyspaces_query: "{{ lookup('file', role_path + '/files/create-keyspaces.cql') }}"
 
 - name: add the datastax repository config
   become: yes
@@ -34,3 +35,31 @@
     name: cassandra
     enabled: yes
     state: restarted
+
+- name: wait for cassandra to start
+  wait_for:
+    port: "{{ native_transport_port }}"
+    delay: 20
+    state: started
+
+- name: create a temporary scripts directory
+  become: yes
+  file:
+    path: "{{ tmp_scripts_dir }}"
+    state: directory
+
+- name: copy create keyspaces script
+  become: yes
+  copy:
+    src: "{{ role_path }}/files/{{ create_keyspaces_script }}"
+    dest: "{{ tmp_scripts_dir }}/{{ create_keyspaces_script }}"
+    force: yes
+
+- name: run create keyspaces script
+  command: cqlsh -f {{ tmp_scripts_dir }}/{{ create_keyspaces_script }}
+
+- name: remove the temporary scripts directory
+  become: yes
+  file:
+    path: "{{ tmp_scripts_dir }}"
+    state: absent

@@ -81,7 +81,7 @@ listen_on_broadcast_address: false
 internode_authenticator: org.apache.cassandra.auth.AllowAllInternodeAuthenticator
 
 start_native_transport: true
-native_transport_port: 9042
+native_transport_port: {{ native_transport_port }}
 native_transport_max_threads: 32
 native_transport_max_frame_size_in_mb: 256
 native_transport_max_concurrent_connections: -1
