@@ -2,3 +2,4 @@
 - hosts: database
   roles:
     - cassandra
+    - cassandra_mock

@@ -1,0 +1,26 @@
+---
+- name: create a temporary data directory
+  run_once: yes
+  become: yes
+  file:
+    path: "{{ tmp_scripts_dir }}"
+    state: directory
+
+- name: copy articles data
+  run_once: yes
+  become: yes
+  copy:
+    src: "{{ role_path }}/files/{{ articles_data_file }}"
+    dest: "{{ tmp_scripts_dir }}/{{ articles_data_file }}"
+    force: yes
+
+- name: run create keyspaces script
+  run_once: yes
+  command: cqlsh -e "COPY website.articles (id, title, content, categories, dateCreated) FROM '{{ tmp_scripts_dir }}/{{ articles_data_file }}' WITH HEADER = true"
+
+- name: remove the temporary data directory
+  run_once: yes
+  become: yes
+  file:
+    path: "{{ tmp_scripts_dir }}"
+    state: absent
