@@ -9,7 +9,10 @@ buildscript {
 
 apply plugin: "io.ratpack.ratpack-java"
 apply plugin: "idea"
+apply plugin: "maven-publish"
 
+group = "io.mstream.website"
+version = "0.0.1-SNAPSHOT"
 
 repositories {
     jcenter()
@@ -40,13 +43,30 @@ idea {
     }
 }
 
+publishing {
+    repositories {
+        maven {
+            url "http://vps252510.ovh.net:8081/nexus/content/repositories/snapshots/"
+            credentials {
+                username "${mavenUser}"
+                password "${mavenPassword}"
+            }
+        }
+    }
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+        }
+    }
+}
+
 run {
-    jvmArgs "-Dratpack.port=8080", "-Dconf.file=/Users/mstream/Development/projects/website/infrastructure/roles/server/templates/config.yml.j2"
+    jvmArgs "-Dratpack.port=8080"
     systemProperty "ratpack.reloadable", "true"
 }
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '2.11'
+    gradleVersion = "2.11"
 }
 
 
