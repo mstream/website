@@ -1,0 +1,11 @@
+[webapp]
+52.48.15.226    ansible_ssh_user=centos
+
+[buildserver]
+vps252510.ovh.net   ansible_ssh_user=root
+
+[database]
+vps253660.ovh.net   ansible_ssh_user=root
+vps253661.ovh.net   ansible_ssh_user=root
+vps253662.ovh.net   ansible_ssh_user=root
+

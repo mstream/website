@@ -1,0 +1,8 @@
+user_name: website
+home_dir: /opt/website
+config_dir: "{{ home_dir }}/conf"
+config_file: config.yml
+cassandra_config_file: /etc/cassandra/conf/cassandra.yaml
+cassandra_seed_nodes:
+  - vps253660.ovh.net
+  - vps253661.ovh.net

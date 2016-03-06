@@ -41,7 +41,7 @@ idea {
 }
 
 run {
-    jvmArgs "-Dratpack.port=8080"
+    jvmArgs "-Dratpack.port=8080", "-Dconf.file=/Users/mstream/Development/projects/website/infrastructure/roles/server/templates/config.yml.j2"
     systemProperty "ratpack.reloadable", "true"
 }
 

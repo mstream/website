@@ -1,0 +1,34 @@
+---
+- name: read cassandra config
+  become: yes
+  become_user: cassandra
+  delegate_to: "{{ groups['database'][0] }}"
+  command: "cat {{ cassandra_config_file }}"
+  register: cassandra_config_file_output
+
+- set_fact:
+    cassandra_seed_nodes: "{{ (cassandra_config_file_output.stdout|from_yaml).seed_provider[0].parameters[0].seeds.split(',') }}"
+
+- name: create a functional user
+  become: yes
+  user:
+    name: "{{ user_name }}"
+    password: "{{ user_name }}"
+    createhome: yes
+    home: "{{ home_dir }}"
+    state: present
+
+- name: create an configuration directory
+  become: yes
+  become_user: "{{ user_name }}"
+  file:
+    path: "{{ config_dir }}"
+    state: directory
+
+- name: create a server config
+  become: yes
+  become_user: "{{ user_name }}"
+  template:
+    src: config.yml.j2
+    dest: "{{ config_dir }}/{{ config_file }}"
+    force: yes
