@@ -9,12 +9,13 @@ import browserify from "browserify";
 import babelify from "babelify";
 import sass from "gulp-sass";
 
+
 const version = "0.0.1-SNAPSHOT";
 
 const paths = {
-    srcRoot:"./src",
+    srcRoot: "./src",
     buildRoot: "./build",
-    distRoot:"./dist",
+    distRoot: "./dist",
     js: "js",
     appFile: "App.jsx",
     bundleName: "App.js"
@@ -40,51 +41,70 @@ const options = {
     }
 };
 
-gulp.task('test', function () {
-    return gulp.src('./src/js/__tests__').pipe(jest(options.jest));
-});
+gulp.task(
+    "test",
+    () =>
+        gulp.src('./src/js/__tests__')
+            .pipe(jest(options.jest))
+);
 
-gulp.task("copy-html", () => {
-    gulp.src("./src/**/*.html")
-        .pipe(gulp.dest(`${paths.buildRoot}`));
-});
+gulp.task(
+    "copy-html",
+    ["test"],
+    () =>
+        gulp.src("./src/**/*.html")
+            .pipe(gulp.dest(`${paths.buildRoot}`))
+);
 
 gulp.task(
     "compile-css",
-    () => gulp.src("./src/sass/**/*.scss")
-        .pipe(sass(options.sass).on(
-            "error",
-            sass.logError)
-        )
-        .pipe(gulp.dest(`${paths.buildRoot}/css`))
+    () =>
+        gulp.src("./src/sass/**/*.scss")
+            .pipe(sass(options.sass).on(
+                "error",
+                sass.logError)
+            ).pipe(gulp.dest(`${paths.buildRoot}/css`))
 );
 
-gulp.task("copy-img", () => {
-    gulp.src("./src/**/*.png")
-        .pipe(gulp.dest(`${paths.buildRoot}`));
-});
+gulp.task(
+    "copy-img",
+    ["test"],
+    () =>
+        gulp.src("./src/**/*.png")
+            .pipe(gulp.dest(`${paths.buildRoot}`))
+);
 
-gulp.task("browserify", () => {
-    browserify(
-        `${paths.js}/${paths.appFile}`,
-        options.browserify
-    )
-        .transform(babelify)
-        .bundle()
-        .on(
-            "error",
-            (err) => console.error(err)
+gulp.task(
+    "browserify",
+    ["test"],
+    () =>
+        browserify(
+            `${paths.js}/${paths.appFile}`,
+            options.browserify
         )
-        .pipe(source(`${paths.js}/${paths.bundleName}`))
-        .pipe(buffer())
-        .pipe(gulp.dest(`${paths.buildRoot}`));
-});
+            .transform(babelify)
+            .bundle()
+            .on(
+                "error",
+                (err) => console.error(err)
+            )
+            .pipe(source(`${paths.js}/${paths.bundleName}`))
+            .pipe(buffer())
+            .pipe(gulp.dest(`${paths.buildRoot}`))
+);
 
-gulp.task("tarball", function () {
-    gulp.src(paths.buildRoot)
-        .pipe(tar(`website-client-${version}.tar`))
-        .pipe(gzip())
-        .pipe(gulp.dest(paths.distRoot));
-});
+gulp.task(
+    "tarball",
+    ["browserify", "compile-css", "copy-img", "copy-html"],
+    () =>
+        gulp.src(`${paths.buildRoot}/*`)
+            .pipe(tar(`website-client-${version}.tar`))
+            .pipe(gzip())
+            .pipe(gulp.dest(paths.distRoot))
+);
 
-gulp.task("default", ["test", "copy-html", "compile-css", "copy-img", "browserify", "tarball"]);
+gulp.task(
+    "default",
+    ["test", "browserify", "compile-css", "copy-html", "copy-img", "tarball"]
+);
+
