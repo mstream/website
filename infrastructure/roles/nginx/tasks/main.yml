@@ -1,0 +1,40 @@
+---
+- name: add the EPEL repository
+  become: yes
+  yum:
+    name: epel-release
+    state: present
+
+- name: install the nginx package
+  become: yes
+  yum:
+    name: nginx
+    state: present
+
+- name: create web content directory
+  become: yes
+  file:
+    path: "{{ www_root }}" 
+    state: directory
+    mode: 0755
+
+- name: configure SELinux to allow nginx serve the web content
+  become: yes
+  command: chcon -Rt httpd_sys_content_t "{{ www_root }}"
+
+- name: configure SELinux to allow nginx serve webapp content
+  become: yes
+  command: setsebool httpd_can_network_connect true 
+
+- name: copy configuration from a template
+  become: yes
+  become_user: nginx
+  template:
+    src: nginx.conf.j2
+    dest: /etc/nginx/nginx.conf
+
+- name: restart nginx service
+  become: yes
+  service:
+    name: nginx
+    state: restarted  

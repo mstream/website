@@ -1,0 +1,6 @@
+---
+- include: buildserver.yml
+- include: repository.yml
+- include: database.yml
+- include: webapp.yml
+
