@@ -1,0 +1,7 @@
+user_name: nexus
+home_dir: /srv/{{ user_name }}
+dist_version: 2.12.0-01
+dist_name: nexus-{{ dist_version }}
+dist_archive: "{{ dist_name }}-bundle.tar.gz"
+download_url: http://www.sonatype.org/downloads/{{ dist_archive }}
+dist_dir: /usr/lib/nexus-oss

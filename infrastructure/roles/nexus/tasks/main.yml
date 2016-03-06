@@ -1,0 +1,86 @@
+---
+- name: create a distribution directory
+  become: yes
+  file:
+    path: "{{ dist_dir }}"
+    owner: "{{ user_name }}"
+    state: directory
+
+- name: create a functional user
+  become: yes
+  user:
+    name: "{{ user_name }}"
+    password: "{{ user_name }}"
+    createhome: yes
+    home: "{{ home_dir }}"
+    state: present
+
+- name: create a repository directory
+  become: yes
+  become_user: "{{ user_name }}"
+  file:
+    path: "{{ dist_dir }}"
+    state: directory
+
+- name: download a distribution archive
+  become: yes
+  become_user: "{{ user_name }}"
+  get_url:
+    url: "{{ download_url }}"
+    dest: "{{ dist_dir }}"
+
+- name: unpack a distribution archive
+  become: yes
+  become_user: "{{ user_name }}"
+  unarchive:
+    src: "{{ dist_dir }}/{{ dist_archive }}"
+    dest: "{{ dist_dir }}"
+    copy: no
+    creates: "{{ dist_name }}"
+
+- name: rename distribution
+  become: yes
+  become_user: "{{ user_name }}"
+  command: mv {{ dist_dir }}/{{ dist_name }} {{ dist_dir }}/{{ dist_version }}
+  args:
+    creates: "{{ dist_dir }}/{{ dist_version }}"
+
+- name: create a distribution symlink
+  become: yes
+  become_user: "{{ user_name }}"
+  file:
+    path: "{{ dist_dir }}/default"
+    src: "{{ dist_dir }}/{{ dist_version }}"
+    state: link
+
+- name: clean up
+  become: yes
+  become_user: "{{ user_name }}"
+  file:
+    path: "{{ item }}"
+    state: absent
+  with_items:
+    - "{{ dist_dir }}/{{ dist_archive }}"
+    - "{{ dist_dir }}/sonatype-work"
+
+- name: create a nexus configuration
+  become: yes
+  become_user: "{{ user_name }}"
+  template:
+    src: nexus.properties.j2
+    dest: "{{ dist_dir }}/default/conf/nexus.properties"
+    force: yes
+
+- name: create a systemctl service script
+  become: yes
+  template:
+    src: nexus.service.j2
+    dest: /lib/systemd/system/nexus.service
+    force: yes
+
+- name: start the service
+  become: yes
+  service:
+    name: nexus
+    enabled: yes
+    state: restarted

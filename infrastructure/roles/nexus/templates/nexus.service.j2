@@ -1,0 +1,13 @@
+[Unit]
+Description=Sonatype Nexus
+Requires=network.target
+After=syslog.target network.target
+
+[Service]
+Type=forking
+ExecStart={{ dist_dir }}/default/bin/nexus start
+ExecStop={{ dist_dir }}/default/bin/nexus stop
+User={{ user_name }}
+
+[Install]
+WantedBy=multi-user.target

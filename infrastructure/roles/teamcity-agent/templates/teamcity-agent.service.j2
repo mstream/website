@@ -6,8 +6,8 @@ After=network.target
 [Service]
 Type=forking
 EnvironmentFile=/etc/sysconfig/teamcity-agent
-ExecStart=/srv/tcagent/default/bin/agent.sh start
-ExecStop=/srv/tcagent/default/bin/agent.sh stop
+ExecStart={{ home_dir }}/default/bin/agent.sh start
+ExecStop={{ home_dir }}/default/bin/agent.sh stop
 User={{ user_name }}
 
 [Install]
