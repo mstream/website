@@ -1,4 +1,4 @@
-import categoryFilter from "../../reducers/categoryFilter";
+import {categoryFilter} from "../../reducers/CategoryFilter";
 import ActionCreatorFactory from "../../actions/ActionCreatorFactory";
 import Actions from "./../../actions/Actions";
 import Immutable from "immutable";

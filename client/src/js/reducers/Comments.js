@@ -20,4 +20,4 @@ const comments = handleActions(
 );
 
 
-export default comments;
+export {comments};

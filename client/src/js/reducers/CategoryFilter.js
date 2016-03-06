@@ -87,4 +87,4 @@ const categoryFilter = handleActions(
 );
 
 
-export default categoryFilter;
+export {categoryFilter};

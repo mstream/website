@@ -1,7 +1,7 @@
 import { createStore, applyMiddleware } from "redux";
 import thunkMiddleware from "redux-thunk"
 import Minilog from "minilog";
-import app from "./reducers/App";
+import {app} from "./reducers/App";
 import actionCreator from "./actions/ActionCreator";
 
 

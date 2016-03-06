@@ -118,4 +118,4 @@ const userInterface = handleActions(
 );
 
 
-export default userInterface;
+export {userInterface};

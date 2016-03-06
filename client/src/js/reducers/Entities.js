@@ -67,4 +67,4 @@ const entities = handleActions(
 );
 
 
-export default entities;
+export {entities};

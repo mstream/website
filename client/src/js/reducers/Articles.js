@@ -20,4 +20,4 @@ const articles = handleActions(
 );
 
 
-export default articles;
+export {articles};

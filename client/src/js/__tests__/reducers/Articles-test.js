@@ -1,6 +1,6 @@
 import { createAction } from "redux-actions";
 import Actions from "./../../actions/Actions";
-import articles from "../../reducers/articles";
+import {articles} from "../../reducers/Articles";
 import ActionCreatorFactory from "../../actions/ActionCreatorFactory";
 import Immutable from "immutable";
 

@@ -1,6 +1,6 @@
 import { createAction } from "redux-actions";
 import Actions from "./../../actions/Actions";
-import userInterface from "../../reducers/UserInterface";
+import {userInterface} from "../../reducers/UserInterface";
 import ActionCreatorFactory from "../../actions/ActionCreatorFactory";
 import Immutable from "immutable";
 

@@ -1,7 +1,7 @@
 import { createAction } from "redux-actions";
 import Actions from "./../../actions/Actions";
 import Immutable from "immutable";
-import entities from "../../reducers/entities";
+import {entities} from "../../reducers/Entities";
 import ActionCreatorFactory from "../../actions/ActionCreatorFactory";
 
 
