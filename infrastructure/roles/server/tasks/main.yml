@@ -1,4 +1,6 @@
 ---
+- include_vars: secrets.yml
+
 - name: read cassandra config
   become: yes
   become_user: cassandra
@@ -13,9 +15,10 @@
   become: yes
   user:
     name: "{{ user_name }}"
-    password: "{{ user_name }}"
+    password: "{{ user_password }}"
     createhome: yes
     home: "{{ home_dir }}"
+    force: yes
     state: present
 
 - name: create an configuration directory
@@ -32,3 +35,4 @@
     src: config.yml.j2
     dest: "{{ config_dir }}/{{ config_file }}"
     force: yes
+

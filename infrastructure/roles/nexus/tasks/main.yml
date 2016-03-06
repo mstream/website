@@ -1,4 +1,6 @@
 ---
+- include_vars: secrets.yml
+
 - name: create a distribution directory
   become: yes
   file:
@@ -10,9 +12,10 @@
   become: yes
   user:
     name: "{{ user_name }}"
-    password: "{{ user_name }}"
+    password: "{{ user_password }}"
     createhome: yes
     home: "{{ home_dir }}"
+    force: yes
     state: present
 
 - name: create a repository directory
