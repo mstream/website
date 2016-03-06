@@ -1,22 +1,24 @@
 import gulp from "gulp";
 import jasmine from "gulp-jasmine";
 import jest from "gulp-jest-iojs";
+import tar from "gulp-tar";
+import gzip from "gulp-gzip";
 import buffer from "vinyl-buffer";
 import source from "vinyl-source-stream";
 import browserify from "browserify";
 import babelify from "babelify";
 import sass from "gulp-sass";
 
+const version = "0.0.1-SNAPSHOT";
 
-const paths = (() => {
-    const
-        srcRoot = "./src",
-        distRoot = "./dist",
-        js = "js",
-        appFile = "App.jsx",
-        bundleName = "App.js";
-    return {srcRoot, distRoot, js, appFile, bundleName};
-})();
+const paths = {
+    srcRoot:"./src",
+    buildRoot: "./build",
+    distRoot:"./dist",
+    js: "js",
+    appFile: "App.jsx",
+    bundleName: "App.js"
+};
 
 const options = {
     browserify: {
@@ -44,7 +46,7 @@ gulp.task('test', function () {
 
 gulp.task("copy-html", () => {
     gulp.src("./src/**/*.html")
-        .pipe(gulp.dest(`${paths.distRoot}`));
+        .pipe(gulp.dest(`${paths.buildRoot}`));
 });
 
 gulp.task(
@@ -54,12 +56,12 @@ gulp.task(
             "error",
             sass.logError)
         )
-        .pipe(gulp.dest(`${paths.distRoot}/css`))
+        .pipe(gulp.dest(`${paths.buildRoot}/css`))
 );
 
 gulp.task("copy-img", () => {
     gulp.src("./src/**/*.png")
-        .pipe(gulp.dest(`${paths.distRoot}`));
+        .pipe(gulp.dest(`${paths.buildRoot}`));
 });
 
 gulp.task("browserify", () => {
@@ -75,7 +77,14 @@ gulp.task("browserify", () => {
         )
         .pipe(source(`${paths.js}/${paths.bundleName}`))
         .pipe(buffer())
-        .pipe(gulp.dest(`${paths.distRoot}`));
+        .pipe(gulp.dest(`${paths.buildRoot}`));
 });
 
-gulp.task("default", ["test", "copy-html", "compile-css", "copy-img", "browserify"]);
+gulp.task("tarball", function () {
+    gulp.src(paths.buildRoot)
+        .pipe(tar(`website-client-${version}.tar`))
+        .pipe(gzip())
+        .pipe(gulp.dest(paths.distRoot));
+});
+
+gulp.task("default", ["test", "copy-html", "compile-css", "copy-img", "browserify", "tarball"]);
