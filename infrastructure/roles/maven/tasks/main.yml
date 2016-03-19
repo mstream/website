@@ -1,0 +1,14 @@
+---
+- name: install a distribution
+  become: yes
+  yum:
+    name: maven
+    state: present
+
+- name: create settings
+  become: yes
+  template:
+    src: settings.xml.j2
+    dest: "{{ home_dir }}/conf/settings.xml"
+    force: yes
+

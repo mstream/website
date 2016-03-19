@@ -6,8 +6,8 @@ After=syslog.target network.target
 [Service]
 Type=forking
 EnvironmentFile=/etc/sysconfig/teamcity
-ExecStart={{ home_dir }}/default/bin/teamcity-server.sh start
-ExecStop={{ home_dir }}/default/bin/teamcity-server.sh stop
+ExecStart={{ user_home }}/default/bin/teamcity-server.sh start
+ExecStop={{ user_home }}/default/bin/teamcity-server.sh stop
 User={{ user_name }}
 
 [Install]

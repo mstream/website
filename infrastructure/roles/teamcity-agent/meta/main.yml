@@ -1,6 +1,7 @@
 ---
 dependencies:
   - { role: java }
+  - { role: maven }
   - { role: nodejs }
   - { role: teamcity }
 

@@ -1,1 +1,1 @@
- TEAMCITY_SERVER_MEM_OPTS="-Xmx512m  -Djava.awt.headless=true  -XX:+UseConcMarkSweepGC -XX:MaxPermSize=128m"
+TEAMCITY_SERVER_MEM_OPTS="-Xmx{{ jvm_max_heap_size }} -XX:MaxPermSize={{ jvm_max_perm_size }} -Djava.awt.headless=true –XX:+Use{{ jvm_gc }}GC"

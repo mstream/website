@@ -1,6 +1,11 @@
-user_name: teamcity
-home_dir: /srv/{{ user_name }}
+user_name: teamcity-master
+user_home: /srv/{{ user_name }}
+
 dist_version: 9.1.6
 dist_name: TeamCity
 dist_archive: "{{ dist_name }}-{{ dist_version }}.tar.gz"
-download_url: https://download.jetbrains.com/teamcity/{{ dist_archive }}
+dist_download_url: https://download.jetbrains.com/teamcity/{{ dist_archive }}
+
+jvm_max_heap_size: 256m
+jvm_max_perm_size: 64mb
+jvm_gc: G1

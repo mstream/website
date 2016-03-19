@@ -1,5 +1,4 @@
 ---
-- hosts: buildserver
+- hosts: buildservermaster
   roles:
     - teamcity
-    - teamcity-agent
