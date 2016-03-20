@@ -1,0 +1,9 @@
+---
+- hosts: reverse_proxies
+  become: yes
+  pre_tasks:
+      - fail: msg="number of reverse proxy and webapp nodes should be equal"
+        when: "{{ play_hosts|length != groups['app_nodes']|length }}"
+        run_once: true
+  roles:
+    - reverse_proxy

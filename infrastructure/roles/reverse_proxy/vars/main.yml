@@ -1,0 +1,3 @@
+http_port: 80
+worker_connections: 1024
+proxied_server: "{{ groups['app_nodes'][play_hosts.index(inventory_hostname)] }}"
