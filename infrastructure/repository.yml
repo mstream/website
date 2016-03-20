@@ -1,4 +1,4 @@
 ---
-- hosts: buildserver
+- hosts: build_server_master
   roles:
     - nexus

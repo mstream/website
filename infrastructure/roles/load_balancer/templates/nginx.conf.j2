@@ -1,0 +1,21 @@
+user nginx;
+worker_processes auto;
+error_log /var/log/nginx/error.log;
+pid /run/nginx.pid;
+
+events {
+    worker_connections {{ worker_connections }};
+}
+
+http {
+    upstream webapp {
+        least_conn;
+        server {{ upstream_servers }};
+    }
+    server {
+        listen {{ http_port }};
+        location / {
+            proxy_pass http://webapp;
+        }
+    }
+}

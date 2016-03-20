@@ -1,5 +1,5 @@
 ---
-- hosts: database
+- hosts: app_nodes
   roles:
     - cassandra
     - cassandra_mock

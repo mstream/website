@@ -1,24 +1,24 @@
-[loadbalancer]
+[load_balancer]
 89.40.120.36
 
-[reverseproxies]
+[reverse_proxies]
 89.40.120.179
 89.40.120.57
 89.40.120.226
 
-[appnodes]
+[app_nodes]
 89.40.120.114
 89.40.120.164
 89.40.120.166
 
-[buildservermaster:children]
-loadbalancer
+[build_server_master:children]
+load_balancer
 
-[buildserverslaves:children]
-reverseproxies
+[build_servers_laves:children]
+reverse_proxies
 
 [databases:children]
-appnodes
+app_nodes
 
-[repositorymanager:children]
-loadbalancer
+[repository_manager:children]
+load_balancer

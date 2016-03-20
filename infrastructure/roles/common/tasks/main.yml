@@ -7,7 +7,6 @@
     password: "{{ user_password }}"
 
 - name: create a sshd service config
-  become: yes
   template:
     src: sshd_config.j2
     dest: /etc/ssh/sshd_config
@@ -17,7 +16,6 @@
     force: yes
 
 - name: create a functional user
-  become: yes
   user:
     name: "{{ user_name }}"
     password: "{{ user_password }}"
@@ -33,7 +31,6 @@
     state: present
 
 - name: create ssh directory
-  become: yes
   file:
       path: "{{ user_home }}/.ssh"
       state: directory
@@ -42,7 +39,6 @@
       mode: 0700
 
 - name: add an authorized public key
-  become: yes
   template:
     src: authorized_keys.j2
     dest: "{{ user_home }}/.ssh/authorized_keys"
