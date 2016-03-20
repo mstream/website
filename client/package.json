@@ -1,9 +1,15 @@
 {
+  "name": "website-client",
+  "version": "0.0.1-SNAPSHOT",
   "license": "MIT",
   "description": "website client",
+  "author": "Maciej Laciak <maciej.laciak@gmail.com> (http://maciej-laciak.com)",
   "repository": {
     "type": "git",
     "url": ""
+  },
+  "publishConfig": {
+    "registry": "http://vps252510.ovh.net:8081/nexus/content/repositories/snapshots/"
   },
   "devDependencies": {
     "babel": "^6.3.26",
@@ -16,6 +22,7 @@
     "gulp-gzip": "^1.2.0",
     "gulp-jasmine": "^2.2.1",
     "gulp-jest-iojs": "^1.0.3",
+    "gulp-maven-deploy": "^0.2.2",
     "gulp-sass": "^2.2.0",
     "gulp-tar": "^1.8.0",
     "jsdom": "^8.0.4",

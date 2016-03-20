@@ -8,6 +8,7 @@ import source from "vinyl-source-stream";
 import browserify from "browserify";
 import babelify from "babelify";
 import sass from "gulp-sass";
+import maven from "gulp-maven-deploy";
 
 
 const version = "0.0.1-SNAPSHOT";
@@ -38,6 +39,18 @@ const options = {
         unmockedModulePathPatterns: [
             ".*"
         ]
+    },
+    maven: {
+        config: {
+            groupId: "io.mstream.website-client",
+            type: "tgz",
+            repositories: [
+                {
+                    id: "nexus",
+                    url: "http://vps252510.ovh.net:8081/nexus/content/repositories/snapshots/"
+                }
+            ]
+        }
     }
 };
 
@@ -101,6 +114,13 @@ gulp.task(
             .pipe(tar(`website-client-${version}.tar`))
             .pipe(gzip())
             .pipe(gulp.dest(paths.distRoot))
+);
+
+gulp.task(
+    "publish",
+    () =>
+        gulp.src(`paths.distRoot/website-client-${version}.tar.gz`)
+            .pipe(maven.deploy(options.maven))
 );
 
 gulp.task(
