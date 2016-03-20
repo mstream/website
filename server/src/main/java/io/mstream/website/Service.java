@@ -1,34 +1,51 @@
 package io.mstream.website;
 
 
-import io.vertx.core.AbstractVerticle;
-import io.vertx.core.Future;
-import io.vertx.core.Vertx;
+import com.google.inject.Guice;
+import com.google.inject.Inject;
+import com.google.inject.Injector;
+import io.mstream.website.config.RoutersModule;
+import io.mstream.website.config.annotations.MainRouter;
+import io.vertx.core.*;
+import io.vertx.core.http.HttpServer;
+import io.vertx.ext.web.Router;
 
 public class Service extends AbstractVerticle {
 
+    private final Router mainRouter;
+
+    @Inject
+    public Service(@MainRouter Router mainRouter) {
+        this.mainRouter = mainRouter;
+    }
+
     public static void main(String[] args) {
-        Vertx.vertx().deployVerticle(new Service());
+        Injector injector = Guice.createInjector(new RoutersModule());
+        Service service = injector.getInstance(Service.class);
+        Vertx.vertx().deployVerticle(service);
     }
 
     @Override
     public void start(Future<Void> startFuture) throws Exception {
-        vertx
-                .createHttpServer()
-                .requestHandler(request -> request.response().end("OK"))
-                .listen(8080, result -> {
-                    if (result.succeeded()) {
-                        System.out.println("listening on port 8080");
-                        startFuture.complete();
-                    } else {
-                        startFuture.fail(result.cause());
-                    }
-                });
+        HttpServer httpServer = vertx.createHttpServer();
+
+        Handler<AsyncResult<HttpServer>> startHandler = result -> {
+            if (result.succeeded()) {
+                System.out.println("listening on port 8080");
+                startFuture.complete();
+            } else {
+                startFuture.fail(result.cause());
+            }
+        };
+
+        httpServer
+                .requestHandler(mainRouter::accept)
+                .listen(8080, startHandler);
     }
 
     @Override
     public void stop() throws Exception {
-        System.out.println("http server stopped");
+        System.out.println("http server has stopped");
         super.stop();
     }
 }

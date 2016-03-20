@@ -1,3 +1,6 @@
+def mavenUser=project.properties["mavenUser"] ?: "";
+def mavenPassword=project.properties["mavenPassword"] ?: "";
+
 buildscript {
     repositories {
         jcenter()
@@ -41,6 +44,8 @@ dependencies {
     testCompile "junit:junit:4.12"
     testCompile "io.vertx:vertx-unit:3.2.1"
     compile "io.vertx:vertx-core:3.2.1"
+    compile "io.vertx:vertx-web:3.2.1"
+    compile "com.google.inject:guice:4.0"
 }
 
 

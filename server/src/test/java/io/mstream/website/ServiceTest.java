@@ -1,5 +1,8 @@
 package io.mstream.website;
 
+import com.google.inject.Guice;
+import com.google.inject.Injector;
+import io.mstream.website.config.RoutersModule;
 import io.vertx.core.Vertx;
 import io.vertx.ext.unit.Async;
 import io.vertx.ext.unit.TestContext;
@@ -16,9 +19,11 @@ public class ServiceTest {
 
     @Before
     public void setUp(TestContext context) throws Exception {
+        Injector injector = Guice.createInjector(new RoutersModule());
+        Service service = injector.getInstance(Service.class);
         vertx = Vertx.vertx();
         vertx.deployVerticle(
-                Service.class.getName(),
+                service,
                 context.asyncAssertSuccess());
     }
 
@@ -30,9 +35,9 @@ public class ServiceTest {
     @Test
     public void test(TestContext context) throws InterruptedException {
         Async async = context.async();
-        vertx.createHttpClient().getNow(8080, "localhost", "/api", response ->
+        vertx.createHttpClient().getNow(8080, "localhost", "/api/articles", response ->
                 response.handler(body -> {
-                    context.assertTrue(body.toString().contains("OK"));
+                    context.assertTrue(body.toString().contains("article"));
                     async.complete();
                 })
         );
