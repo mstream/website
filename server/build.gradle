@@ -6,14 +6,16 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.github.jengelman.gradle.plugins:shadow:1.2.3'
+        classpath "com.github.jengelman.gradle.plugins:shadow:1.2.3"
+        classpath "net.researchgate:gradle-release:2.3.4"
     }
 }
 
 apply plugin: "java"
 apply plugin: "application"
-apply plugin: 'com.github.johnrengelman.shadow'
+apply plugin: "com.github.johnrengelman.shadow"
 apply plugin: "maven-publish"
+apply plugin: 'net.researchgate.release'
 apply plugin: "idea"
 
 group = "io.mstream.website"
