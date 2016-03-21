@@ -1,6 +1,4 @@
 ---
-- include_vars: secrets.yml
-
 - name: create a distribution directory
   become: yes
   file:

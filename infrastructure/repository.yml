@@ -1,4 +1,5 @@
 ---
 - hosts: build_server_master
+  become: yes
   roles:
     - nexus

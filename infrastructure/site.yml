@@ -1,6 +1,9 @@
 ---
+- include: common.yml
 - include: buildserver.yml
 - include: repository.yml
+- include: loadbalancer.yml
+- include: reverseproxy.yml
 - include: database.yml
 - include: webapp.yml
 

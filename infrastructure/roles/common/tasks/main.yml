@@ -1,6 +1,4 @@
 ---
-- include_vars: secrets.yml
-
 - name: change root password
   user:
     name: root

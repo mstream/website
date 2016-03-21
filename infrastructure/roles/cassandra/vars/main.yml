@@ -1,5 +1,7 @@
 dist_version: 22
 native_transport_port: 9042
+seed_nodes: "{{ [play_hosts[0]] if play_hosts|length == 1 else [play_hosts[0], play_hosts[1]] }}"
 tmp_scripts_dir: /tmp/cql
 create_keyspaces_script: create-keyspaces.cql
 create_tables_script: create-tables.cql
+

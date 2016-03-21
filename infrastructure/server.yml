@@ -2,5 +2,4 @@
 - hosts: app_nodes
   become: yes
   roles:
-    - cassandra
-    - cassandra_mock
+    - server

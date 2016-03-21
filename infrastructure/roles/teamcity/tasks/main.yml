@@ -1,7 +1,4 @@
 ---
-- include_vars: secrets.yml
-- become: yes
-
 - name: create a functional user
   user:
     name: "{{ user_name }}"

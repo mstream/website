@@ -1,6 +1,5 @@
 ---
 - set_fact:
-    seed_nodes: "{{ [play_hosts[0]] if play_hosts|length == 1 else [play_hosts[0], play_hosts[1]] }}"
     create_keyspaces_query: "{{ lookup('file', role_path + '/files/create-keyspaces.cql') }}"
 
 - name: add the datastax repository config
