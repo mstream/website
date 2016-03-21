@@ -8,12 +8,12 @@ import io.vertx.ext.web.Router;
 import javax.inject.Inject;
 import javax.inject.Provider;
 
-public class ApiRouterProvider implements Provider<Router>{
+public class ApiRouterProvider implements Provider<Router> {
 
     private final Router articlesRouter;
 
     @Inject
-    public ApiRouterProvider(@ArticlesRouter  Router articlesRouter) {
+    public ApiRouterProvider(@ArticlesRouter Router articlesRouter) {
         this.articlesRouter = articlesRouter;
     }
 
