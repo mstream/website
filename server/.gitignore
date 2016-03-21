@@ -1,4 +1,8 @@
 # Created by .ignore support plugin (hsz.mobi)
+
+server/build
+
+
 ### Java template
 *.class
 
@@ -85,3 +89,14 @@ Icon
 Network Trash Folder
 Temporary Items
 .apdisk
+
+### Gradle template
+.gradle
+build/
+
+# Ignore Gradle GUI config
+gradle-app.setting
+
+# Avoid ignoring Gradle wrapper jar file (.jar files are usually ignored)
+!gradle-wrapper.jar
+
