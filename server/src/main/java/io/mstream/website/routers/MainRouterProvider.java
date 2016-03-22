@@ -2,21 +2,24 @@ package io.mstream.website.routers;
 
 
 import io.mstream.website.config.annotations.ApiRouter;
-import io.mstream.website.config.annotations.ArticlesRouter;
+import io.mstream.website.config.annotations.MonitoringRouter;
 import io.vertx.core.Vertx;
 import io.vertx.ext.web.Router;
-import lombok.val;
 
 import javax.inject.Inject;
 import javax.inject.Provider;
 
-public class MainRouterProvider implements Provider<Router>{
+public class MainRouterProvider implements Provider<Router> {
 
     private final Router apiRouter;
+    private final Router monitoringRouter;
 
     @Inject
-    public MainRouterProvider(@ApiRouter Router apiRouter) {
+    public MainRouterProvider(
+            @ApiRouter Router apiRouter,
+            @MonitoringRouter Router monitoringRouter) {
         this.apiRouter = apiRouter;
+        this.monitoringRouter = monitoringRouter;
     }
 
     @Override
@@ -26,6 +29,9 @@ public class MainRouterProvider implements Provider<Router>{
         router.mountSubRouter(
                 "/api",
                 apiRouter);
+        router.mountSubRouter(
+                "/monitoring",
+                monitoringRouter);
         return router;
     }
 }

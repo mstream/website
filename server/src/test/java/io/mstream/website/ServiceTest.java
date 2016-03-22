@@ -15,6 +15,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+
 @RunWith(VertxUnitRunner.class)
 public class ServiceTest {
 
@@ -75,14 +76,28 @@ public class ServiceTest {
     public void servesComments(TestContext context) {
         Async async = context.async();
         HttpClient httpClient = vertx.createHttpClient();
-        httpClient.getNow(8080, "localhost", "/api/articles/1/comments", response ->
-                response.handler(body -> {
-                    JsonArray commentsJson = body.toJsonArray();
-                    context.assertEquals(
-                            2,
-                            commentsJson.size());
-                    async.complete();
-                })
+        httpClient.getNow(
+                8080,
+                "localhost",
+                "/api/articles/1/comments",
+                response ->
+                        response.handler(body -> {
+                            JsonArray commentsJson = body.toJsonArray();
+                            context.assertEquals(
+                                    2,
+                                    commentsJson.size());
+                            async.complete();
+                        })
         );
+    }
+
+    @Test(timeout = TIMEOUT)
+    public void exposesHealthCheckEndpoint(TestContext context) {
+        Async async = context.async();
+        HttpClient httpClient = vertx.createHttpClient();
+        httpClient.getNow(8080, "localhost", "/monitoring/up", response -> {
+            context.assertEquals(200, response.statusCode());
+            async.complete();
+        });
     }
 }

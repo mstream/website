@@ -14,7 +14,6 @@ import io.vertx.ext.web.Router;
 public class Service extends AbstractVerticle {
 
     private final Config config;
-
     private final Router mainRouter;
 
     @Inject
@@ -38,7 +37,7 @@ public class Service extends AbstractVerticle {
         Handler<AsyncResult<HttpServer>> startHandler = result -> {
             if (result.succeeded()) {
                 System.out.printf(
-                        "Listening on the port: %d",
+                        "Listening on the port: %d\n",
                         config.getHttpPort());
                 startFuture.complete();
             } else {
@@ -55,7 +54,7 @@ public class Service extends AbstractVerticle {
 
     @Override
     public void stop() throws Exception {
-        System.out.println("http server has stopped");
+        System.out.printf("http server has stopped\n");
         super.stop();
     }
 }
