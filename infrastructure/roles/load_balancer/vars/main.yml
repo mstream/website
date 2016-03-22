@@ -1,3 +1,2 @@
 http_port: 80
-worker_connections: 1024
-upstream_servers: "{{ groups['reverse_proxies']|join(';\n        server ') }}"
+max_connections: 1024

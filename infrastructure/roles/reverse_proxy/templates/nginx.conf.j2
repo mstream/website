@@ -11,7 +11,7 @@ http {
     server {
         listen {{ http_port }};
         location /api {
-            proxy_pass http://{{ proxied_server }};
+            proxy_pass http://{{ proxied_server }}:{{ server_http_port }};
         }
     }
 }

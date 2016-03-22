@@ -1,6 +1,6 @@
 ---
 - name: install the nginx package
   yum:
-    name: nginx
+    name: haproxy
     state: present
 

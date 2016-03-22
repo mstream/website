@@ -1,0 +1,23 @@
+global
+    daemon
+    maxconn {{ max_connections }}
+
+defaults
+    mode http
+    timeout connect 2000ms
+    timeout client 20000ms
+    timeout server 20000ms
+
+frontend http-in
+    bind *:80
+    default_backend neo4j
+
+backend neo4j
+    option httpchk GET /monitoring/up
+    {% for host in groups['reverse_proxies'] %}
+    server s{{ loop.index }} {{ host }} maxconn 32
+    {% endfor %}
+
+listen admin
+    bind *:8080
+    stats enable

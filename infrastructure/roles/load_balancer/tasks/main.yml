@@ -1,15 +1,14 @@
 ---
-- name: add nginx service configuration
+- name: add haproxy service configuration
   template:
-    src: nginx.conf.j2
-    dest: /etc/nginx/nginx.conf
-    owner: nginx
-    group: nginx
+    src: haproxy.cfg.j2
+    dest: /etc/haproxy.cfg
+    owner: haproxy
+    group: haproxy
     mode: 0700
     force: yes
 
-- name: restart nginx service
-  become: yes
+- name: restart haproxy service
   service:
-    name: nginx
+    name: haproxy
     state: restarted
