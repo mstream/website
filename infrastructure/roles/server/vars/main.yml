@@ -1,6 +1,12 @@
 user_name: website
+maven_repo_url: http://vps252510.ovh.net:8081/nexus/content/repositories/releases/io/mstream/website/website-server
+package_version: 0.0.2
+package_name: "website-server-{{ package_version }}-fat.jar"
+package_url: "{{ maven_repo_url }}/{{ package_version }}/{{ package_name }}"
 home_dir: /opt/website
 config_dir: "{{ home_dir }}/conf"
+bin_dir: "{{ home_dir }}/bin"
+dist_dir: "{{ home_dir }}/dist/{{package_version}}"
 config_file: config.yml
 cassandra_config_file: /etc/cassandra/conf/cassandra.yaml
 

@@ -1,0 +1,9 @@
+[Unit]
+Description=Website
+
+[Service]
+ExecStart={{ bin_dir }}/start.sh
+User={{ user_name }}
+
+[Install]
+WantedBy=multi-user.target

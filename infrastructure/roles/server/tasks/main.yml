@@ -1,6 +1,5 @@
 ---
 - name: read cassandra config
-  become_user: cassandra
   delegate_to: "{{ groups['databases'][0] }}"
   command: "cat {{ cassandra_config_file }}"
   register: cassandra_config_file_output
@@ -19,16 +18,59 @@
     state: present
 
 - name: create an configuration directory
-  become: yes
-  become_user: "{{ user_name }}"
   file:
     path: "{{ config_dir }}"
     state: directory
+    owner: "{{ user_name }}"
+    group: "{{ user_name }}"
+
+- name: create a binaries directory
+  file:
+    path: "{{ bin_dir }}"
+    state: directory
+    owner: "{{ user_name }}"
+    group: "{{ user_name }}"
+
+- name: create an distribution directory
+  file:
+    path: "{{ dist_dir }}"
+    state: directory
+    owner: "{{ user_name }}"
+    group: "{{ user_name }}"
 
 - name: create a server config
-  become_user: "{{ user_name }}"
   template:
     src: config.yml.j2
     dest: "{{ config_dir }}/{{ config_file }}"
+    owner: "{{ user_name }}"
+    group: "{{ user_name }}"
     force: yes
+
+- name: create a server start script
+  template:
+    src: start.sh.j2
+    dest: "{{ bin_dir }}/start.sh"
+    owner: "{{ user_name }}"
+    group: "{{ user_name }}"
+    mode: 700
+    force: yes
+
+- name: download a package
+  get_url:
+    url: "{{ package_url }}"
+    dest: "{{ dist_dir }}"
+
+- name: create a server systemd service
+  template:
+    src: website.service.j2
+    dest: /etc/systemd/system/website.service
+    owner: root
+    group: root
+    force: yes
+
+- name: restart the server service
+  service:
+    name: website
+    state: restarted
+
 
