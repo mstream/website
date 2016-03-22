@@ -11,7 +11,9 @@ public class MainModuleProvider implements Provider<Module> {
     @Override
     public Module get() {
         return Modules.combine(
+                new ConfigModule(),
                 new RoutersModule(),
                 new ArticlesModule());
     }
 }
+

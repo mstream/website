@@ -1,21 +1,27 @@
 package io.mstream.website;
 
-
 import com.google.inject.Guice;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
+import io.mstream.website.config.Config;
 import io.mstream.website.config.MainModuleProvider;
 import io.mstream.website.config.annotations.MainRouter;
 import io.vertx.core.*;
 import io.vertx.core.http.HttpServer;
 import io.vertx.ext.web.Router;
 
+
 public class Service extends AbstractVerticle {
+
+    private final Config config;
 
     private final Router mainRouter;
 
     @Inject
-    public Service(@MainRouter Router mainRouter) {
+    public Service(
+            Config config,
+            @MainRouter Router mainRouter) {
+        this.config = config;
         this.mainRouter = mainRouter;
     }
 
@@ -31,7 +37,9 @@ public class Service extends AbstractVerticle {
         HttpServer httpServer = vertx.createHttpServer();
         Handler<AsyncResult<HttpServer>> startHandler = result -> {
             if (result.succeeded()) {
-                System.out.println("listening on port 8080");
+                System.out.printf(
+                        "Listening on the port: %d",
+                        config.getHttpPort());
                 startFuture.complete();
             } else {
                 startFuture.fail(result.cause());
@@ -41,7 +49,7 @@ public class Service extends AbstractVerticle {
         httpServer
                 .requestHandler(mainRouter::accept)
                 .listen(
-                        8080,
+                        config.getHttpPort(),
                         startHandler);
     }
 
