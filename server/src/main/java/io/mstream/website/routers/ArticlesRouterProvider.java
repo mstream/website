@@ -15,16 +15,17 @@ import java.util.List;
 
 public class ArticlesRouterProvider implements Provider<Router> {
 
+    private final Vertx vertx;
     private final ArticlesService articlesService;
 
     @Inject
-    public ArticlesRouterProvider(ArticlesService articlesService) {
+    public ArticlesRouterProvider(Vertx vertx, ArticlesService articlesService) {
+        this.vertx = vertx;
         this.articlesService = articlesService;
     }
 
     @Override
     public Router get() {
-        Vertx vertx = Vertx.vertx();
         Router router = Router.router(vertx);
         router.get("/").handler(context -> {
                     List<ArticleThumbnail> articles = articlesService.getAll();

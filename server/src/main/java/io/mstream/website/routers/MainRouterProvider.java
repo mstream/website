@@ -11,20 +11,21 @@ import javax.inject.Provider;
 
 public class MainRouterProvider implements Provider<Router> {
 
+    private final Vertx vertx;
     private final Router apiRouter;
     private final Router monitoringRouter;
 
     @Inject
     public MainRouterProvider(
-            @ApiRouter Router apiRouter,
+            Vertx vertx, @ApiRouter Router apiRouter,
             @MonitoringRouter Router monitoringRouter) {
+        this.vertx = vertx;
         this.apiRouter = apiRouter;
         this.monitoringRouter = monitoringRouter;
     }
 
     @Override
     public Router get() {
-        Vertx vertx = Vertx.vertx();
         Router router = Router.router(vertx);
         router.mountSubRouter(
                 "/api",

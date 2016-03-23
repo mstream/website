@@ -28,7 +28,8 @@ public class Service extends AbstractVerticle {
         Injector injector = Guice.createInjector(
                 new MainModuleProvider().get());
         Service service = injector.getInstance(Service.class);
-        Vertx.vertx().deployVerticle(service);
+        Vertx vertx = injector.getInstance(Vertx.class);
+        vertx.deployVerticle(service);
     }
 
     @Override
