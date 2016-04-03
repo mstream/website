@@ -2,7 +2,7 @@
 - name: change root password
   user:
     name: root
-    password: "{{ user_password }}"
+    password: "{{ user_password_sha512_salted }}"
 
 - name: create a sshd service config
   template:
@@ -16,7 +16,7 @@
 - name: create a functional user
   user:
     name: "{{ user_name }}"
-    password: "{{ user_password }}"
+    password: "{{ user_password_sha512_salted }}"
     createhome: yes
     home: "{{ user_home }}"
     state: present

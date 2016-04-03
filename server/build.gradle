@@ -60,7 +60,7 @@ idea {
 publishing {
     repositories {
         maven {
-            url "http://vps252510.ovh.net:8081/nexus/content/repositories/${project.version.endsWith('-SNAPSHOT') ? 'snapshots' : 'releases' }/"
+            url "http://89.40.120.36/nexus/content/repositories/${project.version.endsWith('-SNAPSHOT') ? 'snapshots' : 'releases' }/"
             credentials {
                 username "${mavenUser}"
                 password "${mavenPassword}"

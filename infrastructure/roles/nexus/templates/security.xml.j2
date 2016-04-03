@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<security>
+  <version>2.0.5</version>
+  <users>
+    <user>
+      <id>admin</id>
+      <firstName>Administrator</firstName>
+      <lastName>User</lastName>
+      <password>{{ user_password_sha1 }}</password>
+      <status>active</status>
+      <email>maciej.laciak@gmail.com</email>
+    </user>
+    <user>
+      <id>deployment</id>
+      <firstName>Deployment</firstName>
+      <lastName>User</lastName>
+      <password>{{ user_password_sha1 }}</password>
+      <status>active</status>
+      <email>maciej.laciak@gmail.com</email>
+    </user>
+  </users>
+  <userRoleMappings>
+    <userRoleMapping>
+      <userId>admin</userId>
+      <source>default</source>
+      <roles>
+        <role>nx-admin</role>
+      </roles>
+    </userRoleMapping>
+    <userRoleMapping>
+      <userId>deployment</userId>
+      <source>default</source>
+      <roles>
+        <role>nx-deployment</role>
+        <role>repository-any-full</role>
+      </roles>
+    </userRoleMapping>
+  </userRoleMappings>
+</security>
