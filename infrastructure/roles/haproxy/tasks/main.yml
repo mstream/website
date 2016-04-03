@@ -4,3 +4,11 @@
     name: haproxy
     state: present
 
+- name: add a syslog configuration for haproxy
+  template:
+    src: syslog/haproxy.conf.j2
+    dest: /etc/rsyslog.d/haproxy.conf
+    owner: root
+    group: root
+    mode: 0644
+    force: yes

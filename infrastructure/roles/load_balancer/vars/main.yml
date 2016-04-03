@@ -1,2 +1,3 @@
 http_port: 80
 max_connections: 1024
+nexus_host: "{{ groups['load_balancer'][0] }}"

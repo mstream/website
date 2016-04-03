@@ -1,6 +1,7 @@
 global
     daemon
     maxconn {{ max_connections }}
+    log 127.0.0.1 local2 info
 
 defaults
     mode http
@@ -10,14 +11,37 @@ defaults
 
 frontend http-in
     bind *:80
-    default_backend neo4j
+    acl url_website path_beg /api
+    acl url_nexus path_beg /nexus
+    use_backend website if url_website
+    use_backend nexus if url_nexus
 
-backend neo4j
-    option httpchk GET /monitoring/up
+backend website
+    option httpchk get /monitoring/up
+    http-check expect rstatus (2)[0-9][0-9]
+    default-server inter 3s fall 3 rise 2
     {% for host in groups['reverse_proxies'] %}
-    server s{{ loop.index }} {{ host }} maxconn 32
+server website{{ loop.index }} {{ host }}:80 check maxconn 32
     {% endfor %}
 
-listen admin
-    bind *:8080
+backend nexus
+    option httpchk get /nexus/
+    server nexus {{ nexus_host }}:8081 check maxconn 32 
+
+listen stats :1936
+    mode http
+    log global
+
+    maxconn 10
+
+    timeout connect 10s
+    timeout client 10s
+    timeout server 10s
+    timeout queue 10s
+
     stats enable
+    stats hide-version
+    stats refresh 30s
+    stats show-node
+    stats auth admin:password
+    stats uri  /

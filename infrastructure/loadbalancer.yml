@@ -1,5 +1,5 @@
 ---
-- hosts: localhost #load_balancer
+- hosts: load_balancer
   become: yes
   roles:
     - load_balancer
