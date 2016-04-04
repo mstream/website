@@ -23,6 +23,7 @@
     state: directory
     owner: "{{ user_name }}"
     group: "{{ user_name }}"
+    mode: 0755
 
 - name: create a binaries directory
   file:
@@ -30,6 +31,15 @@
     state: directory
     owner: "{{ user_name }}"
     group: "{{ user_name }}"
+    mode: 0755
+
+- name: create a work directory
+  file:
+    path: "{{ work_dir }}"
+    state: directory
+    owner: "{{ user_name }}"
+    group: "{{ user_name }}"
+    mode: 0755
 
 - name: create an distribution directory
   file:
@@ -37,6 +47,7 @@
     state: directory
     owner: "{{ user_name }}"
     group: "{{ user_name }}"
+    mode: 0755
 
 - name: create a server config
   template:
@@ -52,13 +63,20 @@
     dest: "{{ bin_dir }}/start.sh"
     owner: "{{ user_name }}"
     group: "{{ user_name }}"
-    mode: 700
+    mode: 0755
     force: yes
 
 - name: download a package
-  get_url:
-    url: "{{ package_url }}"
+  maven_artifact:
+    repository_url: "{{ maven_repo_url }}"
+    group_id: "io.mstream.website"
+    artifact_id: "website-server"
+    version: "{{ package_version }}"
+    classifier: "fat"
     dest: "{{ dist_dir }}"
+    username: "deployment"
+    password: "{{ user_password }}"
+    state: present
 
 - name: create a server systemd service
   template:
@@ -71,6 +89,7 @@
 - name: restart the server service
   service:
     name: website
+    enabled: yes
     state: restarted
 
 

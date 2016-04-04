@@ -1,4 +1,5 @@
 functional_user: mstream
+user_password: "{{ vault_user_password }}"
 user_password_sha512_salted: "{{ vault_user_password_sha512_salted }}"
 user_password_sha1: "{{ vault_user_password_sha1 }}"
 server_http_port: 8080
