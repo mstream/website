@@ -17,7 +17,7 @@ frontend http-in
     use_backend nexus if url_nexus
 
 backend website
-    option httpchk get /monitoring/up
+    option httpchk GET /monitoring/up
     http-check expect rstatus (2)[0-9][0-9]
     default-server inter 3s fall 3 rise 2
     {% for host in groups['reverse_proxies'] %}

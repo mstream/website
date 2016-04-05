@@ -17,42 +17,23 @@
     force: yes
     state: present
 
-- name: create an configuration directory
+- name: set up the home directory
   file:
-    path: "{{ config_dir }}"
+    path: "{{ item }}"
     state: directory
     owner: "{{ user_name }}"
     group: "{{ user_name }}"
     mode: 0755
-
-- name: create a binaries directory
-  file:
-    path: "{{ bin_dir }}"
-    state: directory
-    owner: "{{ user_name }}"
-    group: "{{ user_name }}"
-    mode: 0755
-
-- name: create a work directory
-  file:
-    path: "{{ work_dir }}"
-    state: directory
-    owner: "{{ user_name }}"
-    group: "{{ user_name }}"
-    mode: 0755
-
-- name: create an distribution directory
-  file:
-    path: "{{ dist_dir }}"
-    state: directory
-    owner: "{{ user_name }}"
-    group: "{{ user_name }}"
-    mode: 0755
+  with_items:
+    - "{{ bin_dir }}"
+    - "{{ work_dir }}"
+    - "{{ dist_dir }}"
+    - "{{ conf_dir }}"
 
 - name: create a server config
   template:
     src: config.yml.j2
-    dest: "{{ config_dir }}/{{ config_file }}"
+    dest: "{{ conf_dir }}/{{ config_file }}"
     owner: "{{ user_name }}"
     group: "{{ user_name }}"
     force: yes
@@ -85,11 +66,7 @@
     owner: root
     group: root
     force: yes
-
-- name: restart the server service
-  service:
-    name: website
-    enabled: yes
-    state: restarted
-
-
+  notify:
+    - reload the server service
+    - restart the server service
+    - wait for the server service

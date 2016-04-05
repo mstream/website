@@ -11,4 +11,5 @@
 - name: restart haproxy service
   service:
     name: haproxy
+    enabled: yes
     state: restarted

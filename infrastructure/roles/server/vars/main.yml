@@ -3,7 +3,7 @@ maven_repo_url: http://89.40.120.36/nexus/content/repositories/releases
 package_version: 0.1.0
 package_name: "website-server-{{ package_version }}.jar"
 home_dir: /opt/website
-config_dir: "{{ home_dir }}/conf"
+conf_dir: "{{ home_dir }}/conf"
 bin_dir: "{{ home_dir }}/bin"
 work_dir: "{{ home_dir }}/work"
 dist_dir: "{{ home_dir }}/dist/{{package_version}}"

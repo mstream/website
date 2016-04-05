@@ -1,0 +1,20 @@
+---
+- name: reload the server service
+  service:
+    name: website
+    enabled: yes
+    state: restarted
+
+- name: restart the server service
+  service:
+    name: website
+    enabled: yes
+    state: restarted
+
+- name: wait for the server service
+  wait_for:
+    port: "{{ server_http_port }}"
+    delay: 10
+    timeout: 180
+    state: started
+

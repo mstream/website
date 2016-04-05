@@ -10,7 +10,7 @@ events {
 http {
     server {
         listen {{ http_port }};
-        location /api {
+        location ~ ^/(api|monitoring)/ {
             proxy_pass http://{{ proxied_server }}:{{ server_http_port }};
         }
     }
