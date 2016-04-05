@@ -1,2 +1,5 @@
 #!/bin/bash
-java -jar {{ dist_dir }}/{{ package_name }}
+
+SCRIPT_DIR=`dirname $0`
+source ${SCRIPT_DIR}/setenv.sh
+java ${JAVA_OPTS} -jar {{ dist_dir }}/{{ package_name }}

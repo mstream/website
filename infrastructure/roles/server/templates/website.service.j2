@@ -2,11 +2,10 @@
 Description=Website
 
 [Service]
-Type=forking
 ExecStart={{ bin_dir }}/start.sh
 User={{ user_name }}
 WorkingDirectory={{ work_dir }}
-TimeoutSec=180
+TimeoutSec=60
 
 [Install]
 WantedBy=multi-user.target

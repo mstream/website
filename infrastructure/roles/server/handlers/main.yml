@@ -1,9 +1,6 @@
 ---
 - name: reload the server service
-  service:
-    name: website
-    enabled: yes
-    state: restarted
+  command: systemctl daemon-reload
 
 - name: restart the server service
   service:
@@ -15,6 +12,6 @@
   wait_for:
     port: "{{ server_http_port }}"
     delay: 10
-    timeout: 180
+    timeout: 60
     state: started
 

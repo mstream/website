@@ -37,6 +37,21 @@
     owner: "{{ user_name }}"
     group: "{{ user_name }}"
     force: yes
+  notify:
+    - restart the server service
+    - wait for the server service
+
+- name: create an environment setup script
+  template:
+    src: setenv.sh.j2
+    dest: "{{ bin_dir }}/setenv.sh"
+    owner: "{{ user_name }}"
+    group: "{{ user_name }}"
+    mode: 0755
+    force: yes
+  notify:
+    - restart the server service
+    - wait for the server service
 
 - name: create a server start script
   template:
@@ -46,6 +61,9 @@
     group: "{{ user_name }}"
     mode: 0755
     force: yes
+  notify:
+    - restart the server service
+    - wait for the server service
 
 - name: download a package
   maven_artifact:

@@ -19,7 +19,7 @@ frontend http-in
 backend website
     option httpchk GET /monitoring/up
     http-check expect rstatus (2)[0-9][0-9]
-    default-server inter 3s fall 3 rise 2
+    default-server inter 3s fall 1 rise 2
     {% for host in groups['reverse_proxies'] %}
 server website{{ loop.index }} {{ host }}:80 check maxconn 32
     {% endfor %}
